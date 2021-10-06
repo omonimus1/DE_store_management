@@ -1,3 +1,11 @@
 from django.contrib import admin
+from .models import ProductImage, User, Category, Offer, Product, LoyalCard, Review
 
-# Register your models here.
+admin.site.register(User)
+admin.site.register(Category)
+admin.site.register(Offer)
+admin.site.register(Product)
+admin.site.register(LoyalCard)
+admin.site.register(Review)
+admin.site.register(ProductImage)
+
