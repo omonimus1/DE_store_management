@@ -1,6 +1,8 @@
-<!doctype html>
-<html lang="en">
 
+<!doctype html>
+{% load static %}
+
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <title>Dashboard | Xoric - Responsive Bootstrap 4 Admin Dashboard</title>
@@ -8,24 +10,25 @@
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesdesign" name="author" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
 
         <!-- datepicker -->
-        <link href="assets/libs/air-datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href=" {% static 'libs/air-datepicker/css/datepicker.min.css' %}" rel="stylesheet" type="text/css" />
 
         <!-- jvectormap -->
-        <link href="assets/libs/jqvmap/jqvmap.min.css" rel="stylesheet" />
+        <link href="{% static 'libs/jqvmap/jqvmap.min.css' %}"  rel="stylesheet" />
 
         <!-- Bootstrap Css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="{% static 'css/bootstrap.min.css' %}"  rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
-        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="{% static 'css/icons.min.css' %}"  rel="stylesheet" type="text/css" />
         <!-- App Css-->
-        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="{% static 'css/app.min.css' %}"  rel="stylesheet" type="text/css" />
 
     </head>
 
     <body data-topbar="colored">
+        {% block content %}
 
         <!-- Begin page -->
         <div id="layout-wrapper">
@@ -37,19 +40,19 @@
                         <div class="navbar-brand-box">
                             <a href="index.html" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo-sm-dark.png" alt="" height="22">
+                                    <img src=" {% static 'images/logo-sm-dark.png' %}" alt="" height="22">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="assets/images/logo-dark.png" alt="" height="20">
+                                    <img src="{% static 'images/logo-dark.png' %}" alt="" height="20">
                                 </span>
                             </a>
 
                             <a href="index.html" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo-sm-light.png" alt="" height="22">
+                                    <img src="{% static 'images/logo-sm-light.png' %}" alt="" height="22">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="assets/images/logo-light.png" alt="" height="20">
+                                    <img src="{% static 'images/logo-light.png' %}" alt="" height="20">
                                 </span>
                             </a>
                         </div>
@@ -93,28 +96,28 @@
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-flag-dropdown"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="" src="assets/images/flags/us.jpg" alt="Header Language" height="14">
+                                <img class="" src="images/flags/us.jpg" alt="Header Language" height="14">
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
         
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/spain.jpg" alt="user-image" class="mr-2" height="12"><span class="align-middle">Spanish</span>
+                                    <img src="{% static 'images/flags/spain.jpg'  %} " alt="user-image" class="mr-2" height="12"><span class="align-middle">Spanish</span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/germany.jpg" alt="user-image" class="mr-2" height="12"><span class="align-middle">German</span>
+                                    <img src="{% static 'images/flags/germany.jpg'  %} " alt="user-image" class="mr-2" height="12"><span class="align-middle">German</span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/italy.jpg" alt="user-image" class="mr-2" height="12"><span class="align-middle">Italian</span>
+                                    <img src="{% static 'images/flags/italy.jpg'  %} " alt="user-image" class="mr-2" height="12"><span class="align-middle">Italian</span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/russia.jpg" alt="user-image" class="mr-2" height="12"><span class="align-middle">Russian</span>
+                                    <img src="{% static 'images/flags/russia.jpg'  %} " alt="user-image" class="mr-2" height="12"><span class="align-middle">Russian</span>
                                 </a>
                             </div>
                         </div>
@@ -127,7 +130,7 @@
 
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
+                                <img class="rounded-circle header-profile-user" src="{% static 'images/users/avatar-1.jpg' %}"  alt="Header Avatar">
                                 <span class="d-none d-sm-inline-block ml-1">Smith</span>
                                 <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
                             </button>
@@ -426,7 +429,7 @@
 
                                                 <div class="col-5 ml-auto">
                                                     <div>
-                                                        <img src="assets/images/widget-img.png" alt="" class="img-fluid">
+                                                        <img src="{% static 'images/widget-img.png' %}"  alt="" class="img-fluid">
                                                     </div>
                                                 </div>
                                             </div>
@@ -877,7 +880,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="media">
                                     <div class="position-relative align-self-center mr-3">
-                                        <img src="assets/images/users/avatar-10.jpg" class="rounded-circle avatar-xs" alt="user-pic">
+                                        <img src="{% static 'images/users/avatar-10.jpg' %}"  class="rounded-circle avatar-xs" alt="user-pic">
                                         <i class="mdi mdi-circle user-status online"></i>
                                     </div>
                                     <div class="media-body overflow-hidden">
@@ -892,7 +895,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="media">
                                     <div class="position-relative align-self-center mr-3">
-                                        <img src="assets/images/users/avatar-1.jpg" class="rounded-circle avatar-xs" alt="user-pic">
+                                        <img src="{% static 'images/users/avatar-1.jpg' %}"  class="rounded-circle avatar-xs" alt="user-pic">
                                         <i class="mdi mdi-circle user-status away"></i>
                                     </div>
                                     <div class="media-body overflow-hidden">
@@ -907,7 +910,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="media">
                                     <div class="position-relative align-self-center mr-3">
-                                        <img src="assets/images/users/avatar-9.jpg" class="rounded-circle avatar-xs" alt="user-pic">
+                                        <img src="{% static 'images/users/avatar-9.jpg' %}" class="rounded-circle avatar-xs" alt="user-pic">
                                         <i class="mdi mdi-circle user-status busy"></i>
                                     </div>
                                     <div class="media-body overflow-hidden">
@@ -922,97 +925,7 @@
 
                         <h6 class="px-4 py-3 mt-4 bg-light">Other Chats</h6>
 
-                        <div class="p-2 pb-4">
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="media">
-                                    <div class="position-relative align-self-center mr-3">
-                                        <img src="assets/images/users/avatar-2.jpg" class="rounded-circle avatar-xs" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status online"></i>
-                                    </div>
-                                    <div class="media-body overflow-hidden">
-                                        <h6 class="mt-0 mb-1">Jackson Therry</h6>
-                                        <div class="font-size-12 text-muted">
-                                            <p class="mb-0 text-truncate">Everyone realizes why a new common language.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="media">
-                                    <div class="position-relative align-self-center mr-3">
-                                        <img src="assets/images/users/avatar-4.jpg" class="rounded-circle avatar-xs" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status away"></i>
-                                    </div>
-                                    <div class="media-body overflow-hidden">
-                                        <h6 class="mt-0 mb-1">Charles Deakin</h6>
-                                        <div class="font-size-12 text-muted">
-                                            <p class="mb-0 text-truncate">The languages only differ in their grammar.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="media">
-                                    <div class="position-relative align-self-center mr-3">
-                                        <img src="assets/images/users/avatar-5.jpg" class="rounded-circle avatar-xs" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status online"></i>
-                                    </div>
-                                    <div class="media-body overflow-hidden">
-                                        <h6 class="mt-0 mb-1">Ryan Salting</h6>
-                                        <div class="font-size-12 text-muted">
-                                            <p class="mb-0 text-truncate">If several languages coalesce the grammar of the resulting.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="media">
-                                    <div class="position-relative align-self-center mr-3">
-                                        <img src="assets/images/users/avatar-6.jpg" class="rounded-circle avatar-xs" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status online"></i>
-                                    </div>
-                                    <div class="media-body overflow-hidden">
-                                        <h6 class="mt-0 mb-1">Sean Howse</h6>
-                                        <div class="font-size-12 text-muted">
-                                            <p class="mb-0 text-truncate">It will seem like simplified English.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="media">
-                                    <div class="position-relative align-self-center mr-3">
-                                        <img src="assets/images/users/avatar-7.jpg" class="rounded-circle avatar-xs" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status busy"></i>
-                                    </div>
-                                    <div class="media-body overflow-hidden">
-                                        <h6 class="mt-0 mb-1">Dean Coward</h6>
-                                        <div class="font-size-12 text-muted">
-                                            <p class="mb-0 text-truncate">The new common language will be more simple.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="media">
-                                    <div class="position-relative align-self-center mr-3">
-                                        <img src="assets/images/users/avatar-8.jpg" class="rounded-circle avatar-xs" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status away"></i>
-                                    </div>
-                                    <div class="media-body overflow-hidden">
-                                        <h6 class="mt-0 mb-1">Hayley East</h6>
-                                        <div class="font-size-12 text-muted">
-                                            <p class="mb-0 text-truncate">One could refuse to pay expensive translators.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+            
 
                     </div>
 
@@ -1127,31 +1040,29 @@
         <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>
 
-        <!-- JAVASCRIPT -->
-        <script src="assets/libs/jquery/jquery.min.js"></script>
-        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="assets/libs/metismenu/metisMenu.min.js"></script>
-        <script src="assets/libs/simplebar/simplebar.min.js"></script>
-        <script src="assets/libs/node-waves/waves.min.js"></script>
 
-        <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+            <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+            <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+            <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+            <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+            <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
 
-        <!-- datepicker -->
-        <script src="assets/libs/air-datepicker/js/datepicker.min.js"></script>
-        <script src="assets/libs/air-datepicker/js/i18n/datepicker.en.js"></script>
+            <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
 
-        <!-- apexcharts -->
-        <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+            <script src="{% static 'libs/air-datepicker/js/datepicker.min.js' %}"></script>
+            <script src="{% static 'libs/air-datepicker/js/i18n/datepicker.en.js' %}"></script>
 
-        <script src="assets/libs/jquery-knob/jquery.knob.min.js"></script> 
+            <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
 
-        <!-- Jq vector map -->
-        <script src="assets/libs/jqvmap/jquery.vmap.min.js"></script>
-        <script src="assets/libs/jqvmap/maps/jquery.vmap.usa.js"></script>
+            <script src="{% static  'libs/jquery-knob/jquery.knob.min.js' %}"></script> 
 
-        <script src="assets/js/pages/dashboard.init.js"></script>
+            <script src="{% static 'libs/jqvmap/jquery.vmap.min.js' %}"></script>
+            <script src="{% static 'libs/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
 
-        <script src="assets/js/app.js"></script>
+            <script src="{% static 'js/pages/dashboard.init.js' %}"></script>
+
+            <script src="{% static  'js/app.js' %}"></script>
+            {% endblock %}
 
     </body>
 </html>
