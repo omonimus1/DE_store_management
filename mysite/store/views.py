@@ -1,5 +1,22 @@
 from django.http import HttpResponse
-
+from django.shortcuts import render
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, 'index.html')
+
+def login(request):
+    return render(request, 'login.html')
+
+def product(request):
+    return render(request, 'product.html')
+
+def card(request):
+    return render(request, 'layality_card.html')
+
+def offer(request):
+    return render(request, 'offers.html')
+
+def finance(request):
+    return render(request, 'finance.html')
+
+    

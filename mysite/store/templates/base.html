@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+
+     
+        <meta charset="utf-8" />
+        <title>{% block title %} {% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="Themesdesign" name="author" />
+        <!-- App favicon -->
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/5.14.6/css/font-awesome.min.css" rel="stylesheet">
+
+        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+
+        <!-- datepicker -->
+        <link href=" {% static 'libs/air-datepicker/css/datepicker.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <!-- jvectormap -->
+        <link href="{% static 'libs/jqvmap/jqvmap.min.css' %}"  rel="stylesheet" />
+
+        <!-- Bootstrap Css -->
+        <link href="{% static 'css/bootstrap.min.css' %}"  rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="{% static 'css/icons.min.css' %}"  rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="{% static 'css/app.min.css' %}"  rel="stylesheet" type="text/css" />
+    </head>
+
+  
+    <body data-topbar="colored">
+
+                <!-- Begin page -->
+                <div id="layout-wrapper">
+
+                    <header id="page-topbar">
+                        <div class="navbar-header">
+                            <div class="d-flex">
+                                <!-- LOGO -->
+                                <div class="navbar-brand-box">
+                                    <a href="index.html" class="logo logo-dark">
+                                        <span class="logo-sm">
+                                            <img src=" {% static 'images/logo-sm-dark.png' %}" alt="" height="22">
+                                        </span>
+                                        <span class="logo-lg">
+                                            <img src="{% static 'images/logo-dark.png' %}" alt="" height="20">
+                                        </span>
+                                    </a>
+        
+                                    <a href="index.html" class="logo logo-light">
+                                        <span class="logo-sm">
+                                            <img src="{% static 'images/logo-sm-light.png' %}" alt="" height="22">
+                                        </span>
+                                        <span class="logo-lg">
+                                            <img src="{% static 'images/logo-light.png' %}" alt="" height="20">
+                                        </span>
+                                    </a>
+                                </div>
+        
+                                <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
+                                    <i class="mdi mdi-backburger"></i>
+                                </button>
+        
+                            </div>
+        
+                            <div class="d-flex">
+        
+                                <div class="dropdown d-inline-block">
+                                    <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-user"></i>
+                                        <span class="d-none d-sm-inline-block ml-1">Smith</span>
+                                    </button>
+                                </div>
+                    
+                            </div>
+                        </div>
+        
+                    </header>
+        
+                    <!-- ========== Left Sidebar Start ========== -->
+                    <div class="vertical-menu">
+        
+                        <div data-simplebar class="h-100">
+        
+                            <!--- Sidemenu -->
+                            <div id="sidebar-menu">
+                                <!-- Left Menu Start -->
+                                <ul class="metismenu list-unstyled" id="side-menu">
+                                    <li class="menu-title">Menu</li>
+                                    <li>
+                                        <a href="/store" class=" waves-effect">
+                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-desktop"></i></div>
+                                            <span>sales performances</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="product" class="waves-effect">
+                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-shopping-bag"></i></div>
+                                            <span>Products</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="card" class="waves-effect">
+                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-credit-card"></i></div>
+                                            <span>Loyality card</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="offer" class=" waves-effect">
+                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-tag"></i></div>
+                                            <span>Offers</span>
+                                        </a>
+                                    </li>
+        
+                                    <li>
+                                        <a href="finance" target="_blank" class=" waves-effect">
+                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-balance-scale"></i></div>
+                                            <span>Finance plans</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="logout" class=" waves-effect">
+                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-sign-out-alt" aria-hidden="true"></i></div>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+        
+                                </ul>
+        
+                            </div>
+                            <!-- Sidebar -->
+                        </div>
+                    </div>
+                    <!-- Left Sidebar End -->
+    {% block content %}     {% endblock content %}
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            2021 ©Davide Pollicino
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+            <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+            <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+            <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+            <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+
+            <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+            <script src="{% static 'libs/air-datepicker/js/datepicker.min.js' %}"></script>
+            <script src="{% static 'libs/air-datepicker/js/i18n/datepicker.en.js' %}"></script>
+
+            <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+
+            <script src="{% static  'libs/jquery-knob/jquery.knob.min.js' %}"></script> 
+
+            <script src="{% static 'libs/jqvmap/jquery.vmap.min.js' %}"></script>
+            <script src="{% static 'libs/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+
+            <script src="{% static 'js/pages/dashboard.init.js' %}"></script>
+
+            <script src="{% static  'js/app.js' %}"></script>
+    
+    </body>
+</html>
