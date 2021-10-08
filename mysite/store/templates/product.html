@@ -38,8 +38,11 @@
                                                 <thead>
                                                 <tr>
                                                     <th scope="col">ID</th>
-                                                    <th scope="col">DENOMINAZIONE</th>
-                                                    <th scope="col" style="width: 1%;">Azioni</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Stock</th>
+                                                    <th scope="col">Set as available</th>
+                                                    <th scope="col" style="width: 1%;">Actions</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -50,18 +53,17 @@
 
                                                     <td>ci</td>
                                                     <td>ci</td>
-                                                
+                                                    <td>ci</td>
+                                                    <td>ci</td>
+                                                    <td>ci</td>
+
                                                     <td class="text-right">
                                                         <div class="btn-group mt-1 mr-1 dropleft">
                                                             <button type="button" class="btn btn-sm btn-outline-secondary waves-effect waves-light dropdown-toggle no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <i class="fas fa-fw fa-ellipsis-v"></i>
                                                             </button>
                                                             <div class="dropdown-menu" style="">
-                                                                <a class="dropdown-item" href="">Funzione Affiliato</a>
-                                                                {% comment %}
-                                                                <a class="dropdown-item" href="users/{{ $shop->id_user }}/ordini?isShop">Visualizza Ordini</a>
-                                                                <a class="dropdown-item edit-description" href="#" data-id='{{ $shop->id_user}}' data-description='{{ $shop->description ?? '' }}' data-toggle="modal" data-target="#ModalDescription">Modifica Descrizione</a>
-                                                                {% endcomment %}
+                                                                <a class="dropdown-item" href="">View Details</a>
                                                             
                                                             </div>
                                                         </div>
