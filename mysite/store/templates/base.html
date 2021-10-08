@@ -11,7 +11,8 @@
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesdesign" name="author" />
         <!-- App favicon -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/5.14.6/css/font-awesome.min.css" rel="stylesheet">
+
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
 
         <!-- datepicker -->
@@ -88,7 +89,12 @@
                                 <!-- Left Menu Start -->
                                 <ul class="metismenu list-unstyled" id="side-menu">
                                     <li class="menu-title">Menu</li>
-        
+                                    <li>
+                                        <a href="/store" class=" waves-effect">
+                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-desktop"></i></div>
+                                            <span>sales performances</span>
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="product" class="waves-effect">
                                             <div class="d-inline-block icons-sm mr-1"><i class="fa fa-shopping-bag"></i></div>
@@ -102,15 +108,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/store" class=" waves-effect">
-                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-desktop"></i></div>
-                                            <span>sales performances</span>
-                                        </a>
-                                    </li>
-        
-                                    <li>
                                         <a href="offer" class=" waves-effect">
-                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-money"></i></div>
+                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-tag"></i></div>
                                             <span>Offers</span>
                                         </a>
                                     </li>
@@ -123,7 +122,7 @@
                                     </li>
                                     <li>
                                         <a href="logout" class=" waves-effect">
-                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-sign-out"></i></div>
+                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-sign-out-alt" aria-hidden="true"></i></div>
                                             <span>Logout</span>
                                         </a>
                                     </li>

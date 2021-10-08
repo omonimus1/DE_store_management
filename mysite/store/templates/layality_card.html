@@ -85,8 +85,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            {% comment %}
-                                        @foreach($staffs as $user)
+                                        {% comment %}
                                         <tr>
                                             <th scope="row">{{ $user->id_user }}</th>
                                             <td>{{ $user->first_name }} {{ $user->last_name }}</td>
@@ -99,17 +98,12 @@
                                             <td>{{ $user->affiliation_code ?? '' }}</td>
                                             <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d.m.Y') }}</td>
                                             <td class="text-right">
-                                                <div class="btn-group mt-1 mr-1 dropleft">
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary waves-effect waves-light dropdown-toggle no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fas fa-fw fa-ellipsis-v"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu" style="">
-                                                            <a class="dropdown-item" href="/staff-management/{{ $user->id_user }}/modifica">Modifica</a>
-                                                    </div>
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                                    <label class="custom-control-label" for="customSwitch1">Edit</label>
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endforeach
                                         {% endcomment %}
 
                                         </tbody>
