@@ -11,3 +11,10 @@ def login(request):
 
 def product(request):
     return render(request, 'product.html')
+
+
+def card(request):
+    return render(request, 'layality_card.html')
+
+def offer(request):
+    return render(request, 'offers.html')
