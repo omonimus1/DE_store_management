@@ -1,0 +1,260 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}    
+
+<div class="main-content">
+
+        <div class="page-content">
+
+        <!-- Page-Title -->
+        <div class="page-title-box">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h4 class="page-title mb-1">Products</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title end breadcrumb -->
+
+        <div class="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="header-title mb-4">Products</h5>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-centered table-hover mb-0" id="table-list" style="padding-top: 30px;">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">DENOMINAZIONE</th>
+                                                    <th scope="col" style="width: 1%;">Azioni</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    {% comment %}
+                                                        <th scope="row">{{ $shop->id_user }}</th>
+                                                    {% endcomment %}
+
+                                                    <td>ci</td>
+                                                    <td>ci</td>
+                                                
+                                                    <td class="text-right">
+                                                        <div class="btn-group mt-1 mr-1 dropleft">
+                                                            <button type="button" class="btn btn-sm btn-outline-secondary waves-effect waves-light dropdown-toggle no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fas fa-fw fa-ellipsis-v"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu" style="">
+                                                                <a class="dropdown-item" href="">Funzione Affiliato</a>
+                                                                {% comment %}
+                                                                <a class="dropdown-item" href="users/{{ $shop->id_user }}/ordini?isShop">Visualizza Ordini</a>
+                                                                <a class="dropdown-item edit-description" href="#" data-id='{{ $shop->id_user}}' data-description='{{ $shop->description ?? '' }}' data-toggle="modal" data-target="#ModalDescription">Modifica Descrizione</a>
+                                                                {% endcomment %}
+                                                            
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- container-fluid -->
+            </div>
+            <!-- end page-content-wrapper -->
+        </div>
+
+    </div>
+
+    <div class="modal fade bs-example-modal-lg" id="ModalDescription" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Modifica descrizione</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Descrizione</label>
+                        <textarea class="form-control" id="description_shop" rows="8"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button class="btn btn-light" data-dismiss="modal">Annulla</button>
+                    <button class="btn btn-primary" id="update">Modifica</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
+    {% comment %}
+
+    <script>
+        (function(){
+
+            var user_id;
+
+            $('#table-list').DataTable({
+                order: [1, 'desc']
+            });
+
+
+            $('.edit-description').click(function(e){
+                user_id = $(this).data('id');
+                $("#description_shop").val($(this).data('description'))
+            });
+
+            $('#update').click(function(e){
+                e.preventDefault();
+
+                window.LOADER.show();
+                //  /api/admin/user/2/describe?description=Non solo permanente
+                axios.post('{{ env('API_URL') }}/admin/user/'+user_id+'/describe?description='+$("#description_shop").val())
+                    .then(function(){
+                        // window.LOADER.hide();
+                        alertify.success("Descrizione shop aggiornata");
+
+                        window.location.reload();
+                    })
+                    .catch(function(err){
+
+                        window.LOADER.hide();
+
+                        alertify.error(err.response.data.errors[0]);
+                    })
+
+            });
+
+
+
+            $(document)
+                .on('click', '.show-alert', function(e){
+                    e.preventDefault();
+                    Swal.fire({
+                        title: "Non è possibile personificare un utente bannato",
+                        // text: "You won't be able to revert this!",
+                        icon: "info",
+                        confirmButtonColor: "#3ddc97",
+                        confirmButtonText: "Ok",
+                    })
+                })
+                .on('click','.action-approve', function(e){
+                    e.preventDefault();
+
+                    var self = $(this);
+
+                    Swal.fire({
+                        title: "Attivare l'utente?",
+                        // text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: !0,
+                        confirmButtonColor: "#3ddc97",
+                        cancelButtonColor: "#f46a6a",
+                        confirmButtonText: "Conferma",
+                        cancelButtonText: "Annulla"
+                    }).then(function (t) {
+
+                        if( t.value )
+                        {
+                            window.LOADER.show();
+
+                            axios.post(self.attr('href')+'?active=1')
+                                .then(function(){
+                                    // window.LOADER.hide();
+                                    // self.toggleClass('btn-danger btn-info');
+                                    // self.find('i').toggleClass('fa-lock fa-lock-open');
+                                    alertify.success("Stato utente aggiornato");
+                                    window.location.reload();
+
+                                })
+                                .catch(function(err){
+
+                                    console.log(err);
+
+                                    window.LOADER.hide();
+
+                                    alertify.error("Impossibile aggiornare lo stato");
+                                })
+
+                        }
+                        // t.value && Swal.fire("Deleted!", "Your file has been deleted.", "success")
+                    });
+
+                })
+                .on('click','.action-blacklist, .action-unblacklist', function(e){
+
+                    e.preventDefault();
+
+
+                    var $this = $(this),
+                        isBlocked = $(this).hasClass('action-blacklist'),
+                        text = isBlocked ? 'Bloccare' : 'Sbloccare',
+                        // conf = confirm(text + " l'utente?"),
+                        self = $(this);
+
+                    Swal.fire({
+                        title: text + " l'utente?",
+                        // text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: !0,
+                        confirmButtonColor: "#3ddc97",
+                        cancelButtonColor: "#f46a6a",
+                        confirmButtonText: "Conferma",
+                        cancelButtonText: "Annulla"
+                    }).then(function (t) {
+
+                        if( t.value )
+                        {
+
+
+                            window.LOADER.show();
+                            axios.post($this.attr('href')+'?blacklist='+(isBlocked ? 1 : 0))
+                                .then(function(){
+                                    // window.LOADER.hide();
+                                    // self.toggleClass('btn-danger btn-info');
+                                    // self.find('i').toggleClass('fa-lock fa-lock-open');
+                                    alertify.success("Stato utente aggiornato");
+                                    window.location.reload()
+
+                                })
+                                .catch(function(err){
+
+                                    console.log(err);
+
+                                    window.LOADER.hide();
+
+                                    alertify.error("Impossibile aggiornare lo stato");
+                                })
+
+                        }
+                    });
+
+                });
+
+        })()
+    </script>
+    {% endcomment %}
+
+{% endblock content%}
