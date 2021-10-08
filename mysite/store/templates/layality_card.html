@@ -2,7 +2,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block content %}   
+{% block content %}  
+<div class="main-content">
+
     <div class="page-content">
 
         <!-- Page-Title -->
@@ -24,31 +26,37 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="header-title mb-4">Create loyalty card</h5>
+                                <h5 class="header-title mb-4">Loyalty card</h5>
 
                                 <form id="add-user">
                                     <div class="row align-items-end">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Name</label>
-                                                <input type="text" name="first_name" class="form-control" required/>
+                                                <input type="text" name="first_name" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Surname</label>
-                                                <input type="text" name="last_name" class="form-control" required/>
+                                                <input type="text" name="last_name" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <input type="email" name="email" class="form-control" required/>
+                                                <input type="email" name="email" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Card number</label>
+                                                <input type="text" name="number" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4 text-right">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-success">Create card</button>
+                                                <button type="submit" class="btn btn-success">Search</button>
                                             </div>
                                         </div>
                                     </div>
@@ -70,8 +78,8 @@
                                             <th scope="col">Name</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Card number</th>
-                                            <th scope="col">Creato il</th>
-                                            <th scope="col" style="width: 1%;">Azioni</th>
+                                            <th scope="col">Created at</th>
+                                            <th scope="col">Active</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -116,6 +124,8 @@
         </div>
 
     </div>
+
+</div>
     {% comment %}
 
     <script>
