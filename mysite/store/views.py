@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib.auth import logout
 
 def index(request):
     return render(request, 'index.html')
@@ -18,5 +19,8 @@ def offer(request):
 
 def finance(request):
     return render(request, 'finance.html')
+
+def logout(request):
+    logout(request)
 
     
