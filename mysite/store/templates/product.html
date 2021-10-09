@@ -48,14 +48,10 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr>
-                                                    {% comment %}
-                                                        <th scope="row">{{ $shop->id_user }}</th>
-                                                    {% endcomment %}
-
-                                                    <td>ci</td>
-                                                    <td>ci</td>
-                                                    <td>ci</td>
-                                                    <td>ci</td>
+                                                    <td>{{ product.id }}</td>
+                                                    <td>{{ product.name }}</td>
+                                                    <td>{{ product.price }}</td>
+                                                    <td>{{ product.stock }}</td>
                                                     <td>
                                                         <div class="custom-control custom-switch">
                                                             <input type="checkbox" class="custom-control-input" id="customSwitch1">
@@ -109,7 +105,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Price</label>
-                    <input type="text" name="first_name" class="form-control">
+                    <input type="number" min="0.1" step="0.01"  name="price" class="form-control">
                 </div>
             </div>
             <div class="modal-footer">

@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import logout
 
+from .models import Product, User, Offer, Category
+
 def index(request):
     return render(request, 'index.html')
 
@@ -9,7 +11,7 @@ def login(request):
     return render(request, 'login.html')
 
 def product(request):
-    product_list = product.object.all()
+    product_list = Product.objects.all()
     return render(request, 'product.html', {'product': product_list})
 
 def card(request):
