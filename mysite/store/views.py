@@ -9,7 +9,8 @@ def login(request):
     return render(request, 'login.html')
 
 def product(request):
-    return render(request, 'product.html')
+    product_list = product.object.all()
+    return render(request, 'product.html', {'product': product_list})
 
 def card(request):
     return render(request, 'layality_card.html')
@@ -23,4 +24,3 @@ def finance(request):
 def logout(request):
     logout(request)
 
-    

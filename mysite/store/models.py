@@ -17,7 +17,7 @@ class User(models.Model):
     postcode = models.CharField(max_length=10, blank=True)
     created_at = models.DateField(null=True,  default=timezone.now())
     updated_at = models.DateField(null=True,  default=timezone.now())
-    deleted_at = models.DateField(null=True,  default=timezone.now())
+    deleted_at = models.DateField(default=None)
 
     def __str__(self):
         return self.name
@@ -26,7 +26,7 @@ class Category(models.Model):
     name = models.CharField(max_length=255, blank=False)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True,  default=timezone.now())
+    deleted_at = models.DateField(default=None)
     
     def __str__(self):
         return self.name
@@ -36,7 +36,7 @@ class Offer(models.Model):
     description = models.TextField(blank=True)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True,  default=timezone.now())
+    deleted_at = models.DateField(default=None)
 
     def __str__(self):
             return self.name
@@ -50,10 +50,10 @@ class Product(models.Model):
     available = models.BooleanField(default=True, blank=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
-    stock_available = models.BooleanField(blank=False, default=True)
+    stock_available = models.IntegerField(blank=False, default=0)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True)
+    deleted_at = models.DateField(default=None)
 
     def __str__(self):
         return self.name
@@ -78,7 +78,7 @@ class ProductImage(models.Model):
     url = models.URLField(blank=False)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True)
+    deleted_at = models.DateField(default=None)
 
     def __str__(self):
         return self.name
@@ -88,7 +88,7 @@ class LoyalCard(models.Model):
     active = models.BooleanField(blank=False, default=True)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True)
+    deleted_at = models.DateField(default=None)
 
     def __str__(self):
         return self.name
@@ -101,7 +101,7 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True)
+    deleted_at = models.DateField(default=None)
 
     def __str__(self):
         return self.name
