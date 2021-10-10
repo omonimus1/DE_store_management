@@ -29,28 +29,35 @@
                             <div class="card-body">
                                 <h5 class="header-title mb-4">Offers listing</h5>
 
-                                <form id="settings-form">
+                                <form id="new-offer-form" method="POST" action="offer">
                                     <div class="row offer-details">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Name</label>
-                                                <input type="text" name="first_name" class="form-control">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Name</label>
+                                                    <input type="text" name="name" class="form-control" required>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Description</label>
-                                                <input type="text" name="first_name" class="form-control">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Description</label>
+                                                    <input type="text" name="description" class="form-control" required>
+                                                </div>
                                             </div>
+                                            <div class="col-4">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="active" name="active">
+                                                        <label class="custom-control-label" for="active">Disable globally</label>
 
-                                            <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                                <label class="custom-control-label" for="customSwitch1">Disable globally</label>
+                                                    </div>
                                             </div>
+                                        </div>
                                         </div>
                                         
                                     </div>
 
                                     <div class="text-right">
-                                        <a href="" class="btn btn-danger mr-2">Update</a>
+                                        <button class="btn btn-success btn-block waves-effect waves-light" type="submit">Create</button>
                                     </div>
                                 </form>
                             </div>
