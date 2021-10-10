@@ -35,8 +35,8 @@ class Category(models.Model):
         return self.name
 
 class Offer(models.Model):
-    name = models.CharField(max_length=255, blank=False, default='')
-    description = models.TextField(blank=True)
+    name = models.CharField(max_length=255, blank=False, default='Unknown offer')
+    description = models.TextField(blank=False, default='Unknown description')
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
     deleted_at = models.DateField(default=None)
