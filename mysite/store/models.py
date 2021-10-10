@@ -5,6 +5,8 @@ from django.db.models.signals import post_save
 from django.db import models
 from django.db.models import Sum
 from django.shortcuts import reverse
+from django.core.mail import send_mail
+
 
 
 class User(models.Model):
@@ -85,6 +87,19 @@ class Product(models.Model):
         return reverse("core:remove-from-cart", kwargs={
             'slug': self.slug
         })
+
+    def get_email_alert():
+        product_list = Product.objects.all()
+        for product in product_list:
+            if(product.stock < product.minimum_stock and product.available is True):
+                send_mail(
+                    'Product stock alert',
+                    'Hi, the product ' + product.name + ' is almost out of stock', 
+                    'stock@ed.com',
+                    ['davidepollicino2015@gmail.com'],
+                    fail_silently=False,
+                )
+
 
 class ProductImage(models.Model):
     product_id = models.ForeignKey(Product,  on_delete=models.CASCADE)
