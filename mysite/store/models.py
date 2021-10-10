@@ -10,6 +10,7 @@ from django.shortcuts import reverse
 class User(models.Model):
     name = models.CharField(max_length=200, blank=False)
     surname = models.CharField(max_length=200)
+    username = models.CharField(max_length=255, default=None)
     email = models.EmailField(max_length=200, blank=False)
     password = models.CharField(max_length=200, blank=False)
     level = models.IntegerField(blank=False)
@@ -17,7 +18,7 @@ class User(models.Model):
     postcode = models.CharField(max_length=10, blank=True)
     created_at = models.DateField(null=True,  default=timezone.now())
     updated_at = models.DateField(null=True,  default=timezone.now())
-    deleted_at = models.DateField(null=True,  default=timezone.now())
+    deleted_at = models.DateField(default=None)
 
     def __str__(self):
         return self.name
@@ -26,7 +27,7 @@ class Category(models.Model):
     name = models.CharField(max_length=255, blank=False)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True,  default=timezone.now())
+    deleted_at = models.DateField(default=None)
     
     def __str__(self):
         return self.name
@@ -36,7 +37,7 @@ class Offer(models.Model):
     description = models.TextField(blank=True)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True,  default=timezone.now())
+    deleted_at = models.DateField(default=None)
 
     def __str__(self):
             return self.name
@@ -50,13 +51,24 @@ class Product(models.Model):
     available = models.BooleanField(default=True, blank=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
-    stock_available = models.BooleanField(blank=False, default=True)
+    stock = models.IntegerField(blank=False, default=0)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True)
+    deleted_at = models.DateField(null=True, default=None)
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def get_active():
+        return Product.objects.filter(available=True)
+
+    def update_price(id, price):
+        Product.objects.filter(id = id).update(price = price)
+
+
+    def get_total_number_of_products():
+        return Product.objects.count()
 
     def get_absolute_url(self):
         return reverse("core:product", kwargs={
@@ -78,20 +90,26 @@ class ProductImage(models.Model):
     url = models.URLField(blank=False)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True)
+    deleted_at = models.DateField(default=None)
 
     def __str__(self):
         return self.name
+
+    
 class LoyalCard(models.Model):
     owner_id = models.ForeignKey(User, on_delete=models.CASCADE)
     points = models.IntegerField(blank=False, default=0)
     active = models.BooleanField(blank=False, default=True)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True)
+    deleted_at = models.DateField(default=None)
 
     def __str__(self):
         return self.name
+
+    def get_loyalty_card():
+        cards = LoyalCard.objects.all()
+        return cards
 
 class Review(models.Model):
     title = models.CharField(max_length=255)
@@ -101,7 +119,7 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True)
+    deleted_at = models.DateField(default=None)
 
     def __str__(self):
         return self.name

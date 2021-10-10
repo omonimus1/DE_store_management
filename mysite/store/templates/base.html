@@ -69,8 +69,10 @@
         
                                 <div class="dropdown d-inline-block">
                                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-user"></i>
-                                        <span class="d-none d-sm-inline-block ml-1">Smith</span>
+                                        {% if user.is_authenticated %}
+                                            <i class="fa fa-user"></i>
+                                            <span class="d-none d-sm-inline-block ml-1">{{ user.username }}</span>
+                                        {% endif %}
                                     </button>
                                 </div>
                     
@@ -104,7 +106,7 @@
                                     <li>
                                         <a href="card" class="waves-effect">
                                             <div class="d-inline-block icons-sm mr-1"><i class="fa fa-credit-card"></i></div>
-                                            <span>Loyality card</span>
+                                            <span>Loyalty card</span>
                                         </a>
                                     </li>
                                     <li>
