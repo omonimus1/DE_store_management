@@ -29,8 +29,8 @@ def updateProductPrice(request):
 
 
 def card(request):
-    cards = LoyalCard.get_loyalty_card()
-    return render(request, 'loyalty_card.html', {'cards', cards})
+    cards = LoyalCard.objects.all()
+    return render(request, 'loyalty_card.html', {'cards': cards})
 
 def offer(request):
     return render(request, 'offers.html')
@@ -38,6 +38,7 @@ def offer(request):
 def finance(request):
     return render(request, 'finance.html')
 
-def logout(request):
+def log_user_out(request):
     logout(request)
+    return HttpResponse('Log out correctly')
 

@@ -40,23 +40,13 @@
                                 </thead>
                                 <tbody>
                                 {% for card in cards %}
-                                <tr>
-                                    <th scope="row">{{ card.id }}</th>
-                                    <td>{{ $user->first_name }} {{ $user->last_name }}</td>
-                                    <td>{{ $user->email ?? '' }}</td>
-                                    <td>
-                                        <div class="badge badge-soft-primary">
-                                            {{ ucfirst($user->level) }}
-                                        </div>
-                                    </td>
-                                    <td>{{ $user->affiliation_code ?? '' }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d.m.Y') }}</td>
-                                    <td class="text-right">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                            <label class="custom-control-label" for="customSwitch1">Edit</label>
-                                        </div>
-                                    </td>
+                                <tr scope="row">
+                                    <td >{{ card.id }}</td>
+                                    <td>{{ card.id }} </td>
+                                    <td>{{ card.id}}</td>
+                                    <td>{{ card.created_at }}</td>
+                                    <td>{{ card.created_at }}</td>
+                                    <td> {{ card.active }} </td>
                                 </tr>
                                 {% endfor %}
 

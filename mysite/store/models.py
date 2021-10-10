@@ -10,6 +10,7 @@ from django.shortcuts import reverse
 class User(models.Model):
     name = models.CharField(max_length=200, blank=False)
     surname = models.CharField(max_length=200)
+    username = models.CharField(max_length=255, default=None)
     email = models.EmailField(max_length=200, blank=False)
     password = models.CharField(max_length=200, blank=False)
     level = models.IntegerField(blank=False)
@@ -89,6 +90,8 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return self.name
+
+    
 class LoyalCard(models.Model):
     owner_id = models.ForeignKey(User, on_delete=models.CASCADE)
     points = models.IntegerField(blank=False, default=0)
@@ -100,9 +103,9 @@ class LoyalCard(models.Model):
     def __str__(self):
         return self.name
 
-
     def get_loyalty_card():
-        return LoyalCard.objects.all()
+        cards = LoyalCard.objects.all()
+        return cards
 
 class Review(models.Model):
     title = models.CharField(max_length=255)

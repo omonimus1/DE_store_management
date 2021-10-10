@@ -9,6 +9,6 @@ urlpatterns = [
     path('card', views.card),
     path('offer', views.offer),
     path('finance', views.finance),
-    path('logout', views.logout),
+    path('logout', views.log_user_out),
     path('updateProductPrice', views.updateProductPrice)
 ]
