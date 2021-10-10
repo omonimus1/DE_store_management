@@ -66,6 +66,10 @@ class Product(models.Model):
     def update_price(id, price):
         Product.objects.filter(id = id).update(price = price)
 
+
+    def get_total_number_of_products():
+        return Product.objects.count()
+
     def get_absolute_url(self):
         return reverse("core:product", kwargs={
             'slug': self.slug

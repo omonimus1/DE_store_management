@@ -12,20 +12,21 @@ def login(request):
     return render(request, 'login.html')
 
 def product(request):
-    if request.POST:
-        Product.update_price(request.POST.get('id'), request.POST.get('price'))
-        messages.info(request, 'Product price updated')
-        product_list = Product.objects.all()
-        return render(request, 'product.html', {'products': product_list})
-    else: 
-        product_list = Product.objects.all()
-        messages.info(request, 'Product updated')
-        return render(request, 'product.html', {'products': product_list})
+    product_list = Product.objects.all()
+    number_of_products = product_list.count()
+    return render(request, 'product.html', {
+        'products': product_list,
+        'products_number' : number_of_products,
+    })
 
 
 def updateProductPrice(request):
-    return product
-
+    if request.POST:
+        Product.update_price(request.POST.get('id'), request.POST.get('price'))
+        return product
+    else:
+        messages.error(request, 'UpdateProduct was not POST')
+        return product
 
 def card(request):
     cards = LoyalCard.objects.all()

@@ -19,7 +19,6 @@
                         <button class="btn btn-warning" type="button" data-id='{{ product.price}}' data-price="{{ product.price}}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                             Update price
                         </button>  
-
                     </div>
                 </div>
             </div>
@@ -36,7 +35,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="header-title mb-4">Products</h5>
+                                        <h5 class="header-title mb-4">Products List - N. of items: {{products_number}}</h5>
 
                                         <div class="table-responsive">
                                             <table class="table table-centered table-hover mb-0" id="table-list" style="padding-top: 30px;">
@@ -95,7 +94,7 @@
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <form method="post" action="product">
+            <form method="post" action="updateProductPrice">
                 {% csrf_token %}
                 <div class="modal-body">
                     <div class="form-group">
