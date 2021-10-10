@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Product, User, ProductImage
+from .models import Product, User, ProductImage,LoyalCard
 
 class ProductSerializer(serializers.HyperlinkModelSerializer):
 
