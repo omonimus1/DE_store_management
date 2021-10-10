@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import logout
-
+from django.contrib import messages
 from .models import Product, User, Offer, Category
 
 def index(request):
@@ -11,8 +11,17 @@ def login(request):
     return render(request, 'login.html')
 
 def product(request):
-    product_list = Product.objects.all()
-    return render(request, 'product.html', {'product': product_list})
+    if request.POST:
+        Product.objects.filter(request.GET.get('id')).update(price = request.GET.get('price'))
+
+    product_list = Product.objects.filter.all()
+    messages.info(request, 'Product updated')
+    return render(request, 'product.html', {'products': product_list})
+
+
+def updateProductPrice(request):
+    return product
+
 
 def card(request):
     return render(request, 'layality_card.html')

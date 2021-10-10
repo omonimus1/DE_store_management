@@ -50,13 +50,18 @@ class Product(models.Model):
     available = models.BooleanField(default=True, blank=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
-    stock_available = models.IntegerField(blank=False, default=0)
+    stock = models.IntegerField(blank=False, default=0)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
     deleted_at = models.DateField(null=True, default=None)
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def get_active():
+        return Product.objects.filter(available=True)
+
 
     def get_absolute_url(self):
         return reverse("core:product", kwargs={

@@ -10,4 +10,5 @@ urlpatterns = [
     path('offer', views.offer),
     path('finance', views.finance),
     path('logout', views.logout),
+    path('updateProductPrice', views.updateProductPrice)
 ]
