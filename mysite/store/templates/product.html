@@ -16,7 +16,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-8">
                         <h4 class="page-title mb-1">Products</h4>
-                        <button class="btn btn-warning" type="button" data-id='{{ product.price}}' data-price="{{ product.price}}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        <button class="btn btn-secondary" type="button" data-id='{{ product.price}}' data-price="{{ product.price}}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                             Update price
                         </button>  
                     </div>
@@ -45,8 +45,9 @@
                                                     <th scope="col">Name</th>
                                                     <th scope="col">Price</th>
                                                     <th scope="col">Stock</th>
-                                                    <!-- <th scope="col">Availability</th> -->
                                                     <th scope="col">Category</th>
+                                                    <th scope="col">Min. stock</th>
+                                                    <th scope="col">Availability</th>
 
                                                 </tr>
                                                 </thead>
@@ -59,6 +60,16 @@
                                                     <td>{{ product.price }}</td>
                                                     <td>{{ product.stock }}</td>
                                                     <td>{{product.category.name}}</td>
+                                                    <td>{{product.minimum_stock}}</td>
+                                                    <td>
+                                                        {% if product.stock  == 0 %}
+                                                            <button type="button" class="btn btn-danger">Out of stock</button>
+                                                        {% elif product.stock  > product.minimum_stock %}
+                                                            <button type="button" class="btn btn-success">Available</button>
+                                                        {% else %}                                                            
+                                                            <button type="button" class="btn btn-warning">Need to reorder</button>
+                                                        {% endif %}
+                                                    </td>
                                                     <!-- <td>
                                                         <div class="custom-control custom-switch">
                                                             <input type="checkbox"  {%if product.available %} checked="checked" {% endif %}

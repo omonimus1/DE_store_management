@@ -51,6 +51,7 @@ class Product(models.Model):
     available = models.BooleanField(default=True, blank=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
+    minimum_stock = models.IntegerField(blank=False, default=10)
     stock = models.IntegerField(blank=False, default=0)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
