@@ -16,6 +16,10 @@
                 <div class="row align-items-center">
                     <div class="col-md-8">
                         <h4 class="page-title mb-1">Products</h4>
+                        <button class="btn btn-warning" type="button" data-id='{{ product.price}}' data-price="{{ product.price}}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                            Update price
+                        </button>  
+
                     </div>
                 </div>
             </div>
@@ -42,8 +46,9 @@
                                                     <th scope="col">Name</th>
                                                     <th scope="col">Price</th>
                                                     <th scope="col">Stock</th>
-                                                    <th scope="col">Availability</th>
-                                                    <th scope="col" style="width: 1%;">Actions</th>
+                                                    <!-- <th scope="col">Availability</th> -->
+                                                    <th scope="col">Category</th>
+
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -54,27 +59,15 @@
                                                     <td>{{ product.name }}</td>
                                                     <td>{{ product.price }}</td>
                                                     <td>{{ product.stock }}</td>
-                                                    <td>
+                                                    <td>{{product.category.name}}</td>
+                                                    <!-- <td>
                                                         <div class="custom-control custom-switch">
                                                             <input type="checkbox"  {%if product.available %} checked="checked" {% endif %}
                                                              class="custom-control-input" id="customSwitch1">
                                                             <label class="custom-control-label" for="customSwitch1">Edit</label>
                                                         </div>
                                                           
-                                                    </td>
-
-                                                    <td class="text-right">
-                                                        <div class="btn-group mt-1 mr-1 dropleft">
-                                                            <button type="button" class="btn btn-sm btn-outline-secondary waves-effect waves-light dropdown-toggle no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i class="fas fa-fw fa-ellipsis-v"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu" style="">
-                                                                    <button class ="edit-price" type="button" data-id='{{ product.price}}' data-price="{{ product.price}}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                                                        Update price
-                                                                    </button>                                                              
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                                    </td> -->
                                                 </tr>
                                                 {% endfor %}
 
@@ -97,29 +90,31 @@
 
     </div>
 
+
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
             <form method="post" action="product">
                 {% csrf_token %}
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Edit price</h4>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" min="0.1" step="0.01" class="form-control" name="price" :value="price" required/>
                     </div>
-                    <div class="modal-body">
-                        <label for="name">Price:</label>
-                        <input type="number" min="0.0" step="0.01" class="form-control" name="price" :value="price" />
-                        <input type="hidden" name="id" :value="id" />
-                    </div>
-                    <div class="modal-footer">
-                        <a href="product">                        
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </a>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <div class="form-group">
+                        <label for="id">Product Id</label>
+                        <input type="number" min="0" step="1" class="form-control" name="id" :value="id" required/>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <a href="product">                        
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </form>
+            </div>
         </div>
     </div>
 

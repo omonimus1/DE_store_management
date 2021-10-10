@@ -12,16 +12,15 @@ def login(request):
     return render(request, 'login.html')
 
 def product(request):
-    breakpoint()
     if request.POST:
-        # Product.update_price(request.POST.get('id'), request.POST.get('price'))
-        Product.update_price(1, 333)
-        breakpoint()
-
-    breakpoint()
-    product_list = Product.objects.all()
-    messages.info(request, 'Product updated')
-    return render(request, 'product.html', {'products': product_list})
+        Product.update_price(request.POST.get('id'), request.POST.get('price'))
+        messages.info(request, 'Product price updated')
+        product_list = Product.objects.all()
+        return render(request, 'product.html', {'products': product_list})
+    else: 
+        product_list = Product.objects.all()
+        messages.info(request, 'Product updated')
+        return render(request, 'product.html', {'products': product_list})
 
 
 def updateProductPrice(request):
