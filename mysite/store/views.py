@@ -40,5 +40,5 @@ def finance(request):
 
 def log_user_out(request):
     logout(request)
-    return HttpResponse('Log out correctly')
+    return render(request, 'login.html')
 
