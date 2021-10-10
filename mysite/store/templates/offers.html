@@ -30,6 +30,8 @@
                                 <h5 class="header-title mb-4">Offers listing</h5>
 
                                 <form id="new-offer-form" method="POST" action="offer">
+                                    {% csrf_token %}
+
                                     <div class="row offer-details">
                                         <div class="row">
                                             <div class="col-4">
@@ -60,6 +62,36 @@
                                         <button class="btn btn-success btn-block waves-effect waves-light" type="submit">Create</button>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end row -->
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="header-title mb-4">Staff</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-centered table-hover mb-0" id="table-list">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Latest update</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for offer in offers %}
+                                            <tr scope="row">
+                                                <td>{{ offer.name }}</td>
+                                                <td>{{ offer.description }}</td>
+                                                <td>{{offer.updated_at}}</td>
+                                            </tr>
+                                        {% endfor %}
+        
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
