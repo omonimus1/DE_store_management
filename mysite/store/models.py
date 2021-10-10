@@ -62,6 +62,8 @@ class Product(models.Model):
     def get_active():
         return Product.objects.filter(available=True)
 
+    def update_price(id, price):
+        Product.objects.filter(id = id).update(price = price)
 
     def get_absolute_url(self):
         return reverse("core:product", kwargs={
@@ -97,6 +99,10 @@ class LoyalCard(models.Model):
 
     def __str__(self):
         return self.name
+
+
+    def get_loyalty_card():
+        return LoyalCard.objects.all()
 
 class Review(models.Model):
     title = models.CharField(max_length=255)

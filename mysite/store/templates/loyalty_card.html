@@ -1,0 +1,166 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %} 
+{% block title %} Loyality card {% endblock %}
+
+<div class="main-content">
+
+    <div class="page-content">
+
+        <!-- Page-Title -->
+        <div class="page-title-box">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h4 class="page-title mb-1">Loyalty card</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+       
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="header-title mb-4">Staff</h5>
+
+                        <div class="table-responsive">
+                            <table class="table table-centered table-hover mb-0" id="table-list">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Card number</th>
+                                    <th scope="col">Created at</th>
+                                    <th scope="col">Active</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for card in cards %}
+                                <tr>
+                                    <th scope="row">{{ card.id }}</th>
+                                    <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                                    <td>{{ $user->email ?? '' }}</td>
+                                    <td>
+                                        <div class="badge badge-soft-primary">
+                                            {{ ucfirst($user->level) }}
+                                        </div>
+                                    </td>
+                                    <td>{{ $user->affiliation_code ?? '' }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d.m.Y') }}</td>
+                                    <td class="text-right">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                            <label class="custom-control-label" for="customSwitch1">Edit</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- end page-content-wrapper -->
+</div>
+
+    </div>
+
+</div>
+    {% comment %}
+
+    <script>
+        (function(){
+
+            $('#table-list').DataTable();
+
+
+            $('#genera-pwd').click(function(){
+                $('[name="password"]').val(Math.random().toString(36).slice(-8));
+            });
+
+            $('#add-user').submit(function(e){
+                e.preventDefault();
+
+                window.LOADER.show();
+
+                axios.post('{{ env('API_URL') }}/admin/user/create', $(this).serializeObject())
+                    .then(function(){
+
+                        alertify.success('Staff Aggiunto');
+                        window.location.reload();
+                    })
+                    .catch(function(){
+
+                        window.LOADER.hide();
+                        alertify.error('Impossibile aggiungere lo staff');
+                    })
+            });
+
+
+            $(document)
+                .on('click','.action-blacklist, .action-unblacklist', function(e){
+
+                    e.preventDefault();
+
+
+                    var $this = $(this),
+                        isBlocked = $(this).hasClass('action-blacklist'),
+                        text = isBlocked ? 'Bloccare' : 'Sbloccare',
+                        // conf = confirm(text + " l'utente?"),
+                        self = $(this);
+
+                    Swal.fire({
+                        title: text + " l'utente?",
+                        // text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: !0,
+                        confirmButtonColor: "#3ddc97",
+                        cancelButtonColor: "#f46a6a",
+                        confirmButtonText: "Conferma",
+                        cancelButtonText: "Annulla"
+                    }).then(function (t) {
+
+                        if( t.value )
+                        {
+
+
+                            window.LOADER.show();
+                            axios.post($this.attr('href')+'?blacklist='+(isBlocked ? 1 : 0))
+                                .then(function(){
+                                    // window.LOADER.hide();
+                                    // self.toggleClass('btn-danger btn-info');
+                                    // self.find('i').toggleClass('fa-lock fa-lock-open');
+                                    alertify.success("Stato utente aggiornato");
+                                    window.location.reload()
+
+                                })
+                                .catch(function(err){
+
+                                    console.log(err);
+
+                                    window.LOADER.hide();
+
+                                    alertify.error("Impossibile aggiornare lo stato");
+                                })
+
+                        }
+                        // t.value && Swal.fire("Deleted!", "Your file has been deleted.", "success")
+                    });
+
+                });
+
+        })()
+    </script>
+    {% endcomment %}
+
+{% endblock content%}
