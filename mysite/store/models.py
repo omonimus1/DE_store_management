@@ -113,7 +113,8 @@ class ProductImage(models.Model):
 
     
 class LoyalCard(models.Model):
-    owner_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, default=None)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     points = models.IntegerField(blank=False, default=0)
     active = models.BooleanField(blank=False, default=True)
     created_at = models.DateField(null=True, default=timezone.now())
@@ -122,10 +123,6 @@ class LoyalCard(models.Model):
 
     def __str__(self):
         return self.name
-
-    def get_loyalty_card():
-        cards = LoyalCard.objects.all()
-        return cards
 
 class Review(models.Model):
     title = models.CharField(max_length=255)

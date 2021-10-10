@@ -25,29 +25,34 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="header-title mb-4">Staff</h5>
-
                         <div class="table-responsive">
                             <table class="table table-centered table-hover mb-0" id="table-list">
                                 <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Card number</th>
+                                    <th scope="col">Card Number</th>
+                                    <th scope="col">Owner Full Name</th>
+                                    <th scope="col">Owner Email</th>
+                                    <th scope="col">Points</th>
                                     <th scope="col">Created at</th>
-                                    <th scope="col">Active</th>
+                                    <th scope="col">State</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for card in cards %}
-                                <tr scope="row">
-                                    <td >{{ card.id }}</td>
-                                    <td>{{ card.id }} </td>
-                                    <td>{{ card.id}}</td>
-                                    <td>{{ card.created_at }}</td>
-                                    <td>{{ card.created_at }}</td>
-                                    <td> {{ card.active }} </td>
-                                </tr>
+                                    <tr scope="row">
+                                        <td >{{ card.id }}</td>
+                                        <td>{{ card.user.name }} {{ card.user.surname }}</td>
+                                        <td>{{ card.user.email}}</td>
+                                        <td>{{ card.points }}</td>
+                                        <td>{{ card.created_at }}</td>
+                                        <td>
+                                            {% if card.active  %}
+                                                <button type="button" class="btn btn-primary">Active</button>
+                                            {% else %}                                                            
+                                                <button type="button" class="btn btn-danger">Not active</button>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
                                 {% endfor %}
 
                                 </tbody>
