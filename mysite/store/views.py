@@ -53,7 +53,14 @@ def card(request):
     return render(request, 'loyalty_card.html', {'cards': cards})
 
 def offer(request):
-    return render(request, 'offers.html')
+    if request.POST:
+        new_offer = Offer()
+        new_offer.name = request.POST.get('name')
+        new_offer.description = request.POST.get('description')
+        new_offer.save()
+    offer_list = Offer.objects.all()
+    return render(request, 'offers.html', {'offers': offer_list})
+
 
 def finance(request):
     return render(request, 'finance.html')
