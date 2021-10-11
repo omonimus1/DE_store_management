@@ -21,7 +21,6 @@ def doLogin(request):
     user = authenticate(request, username=username, password=password )
     if user is not None:
         login(request,user)
-        messages.info(request, 'welcome')             
         return render(request, 'index.html')
 
     else:

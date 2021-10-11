@@ -40,6 +40,7 @@
                             <div class="d-flex">
                                 <!-- LOGO -->
                                 <div class="navbar-brand-box">
+                                    
                                     <a href="index.html" class="logo logo-dark">
                                         <span class="logo-sm">
                                             <img src=" {% static 'images/logo-sm-dark.png' %}" alt="" height="22">
@@ -91,43 +92,53 @@
                                 <!-- Left Menu Start -->
                                 <ul class="metismenu list-unstyled" id="side-menu">
                                     <li class="menu-title">Menu</li>
-                                    <li>
-                                        <a href="/store" class=" waves-effect">
-                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-desktop"></i></div>
-                                            <span>sales performances</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="product" class="waves-effect">
-                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-shopping-bag"></i></div>
-                                            <span>Products</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="card" class="waves-effect">
-                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-credit-card"></i></div>
-                                            <span>Loyalty card</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="offer" class=" waves-effect">
-                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-tag"></i></div>
-                                            <span>Offers</span>
-                                        </a>
-                                    </li>
-        
-                                    <li>
-                                        <a href="finance" target="_blank" class=" waves-effect">
-                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-balance-scale"></i></div>
-                                            <span>Finance plans</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="logout" class=" waves-effect">
-                                            <div class="d-inline-block icons-sm mr-1"><i class="fa fa-sign-out-alt" aria-hidden="true"></i></div>
-                                            <span>Logout</span>
-                                        </a>
-                                    </li>
+                                    {% if user.is_authenticated %}
+                                        <li>
+                                            <a href="/store" class=" waves-effect">
+                                                <div class="d-inline-block icons-sm mr-1"><i class="fa fa-desktop"></i></div>
+                                                <span>sales performances</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="product" class="waves-effect">
+                                                <div class="d-inline-block icons-sm mr-1"><i class="fa fa-shopping-bag"></i></div>
+                                                <span>Products</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="card" class="waves-effect">
+                                                <div class="d-inline-block icons-sm mr-1"><i class="fa fa-credit-card"></i></div>
+                                                <span>Loyalty card</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="offer" class=" waves-effect">
+                                                <div class="d-inline-block icons-sm mr-1"><i class="fa fa-tag"></i></div>
+                                                <span>Offers</span>
+                                            </a>
+                                        </li>
+            
+                                        <li>
+                                            <a href="finance" target="_blank" class=" waves-effect">
+                                                <div class="d-inline-block icons-sm mr-1"><i class="fa fa-balance-scale"></i></div>
+                                                <span>Finance plans</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="logout" class=" waves-effect">
+                                                <div class="d-inline-block icons-sm mr-1"><i class="fa fa-sign-out-alt" aria-hidden="true"></i></div>
+                                                <span>Logout</span>
+                                            </a>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <a href="login" class=" waves-effect">
+                                                <div class="d-inline-block icons-sm mr-1"><i class="fa fa-sign-in" aria-hidden="true"></i></div>
+                                                <span>Login</span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    
         
                                 </ul>
         
