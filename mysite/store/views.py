@@ -18,21 +18,17 @@ def create_user(request):
 def doLogin(request):
     username= request.GET.get('username')
     password= request.GET.get('password')
-    
     user = authenticate(request, username=username, password=password )
-
     if user is not None:
         login(request,user)
         messages.info(request, 'welcome')             
         return render(request, 'index.html')
 
     else:
-        messages.info(request, 'something wrong')
-        # return HttpResponse('<H1>Something wrong</H1>', status=400)
-        return render(request, 'index.html')
+        messages.info(request, 'something wrong during authentication')
+        return render(request, 'login.html')
 
 def loginPage(request):
-    messages.info(request, 'wtf')
     return render(request, 'login.html')
 
 def product(request):
