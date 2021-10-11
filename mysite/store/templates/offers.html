@@ -28,8 +28,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="header-title mb-4">Offers listing</h5>
-
+                               
                                 <form id="settings-form">
+                                    {% csrf_token %}
                                     <div class="row offer-details">
                                         <div class="col-md-4">
                                             <div class="form-group">

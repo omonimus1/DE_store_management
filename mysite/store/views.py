@@ -4,24 +4,35 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 from .models import LoyalCard, Product, User, Offer, Category
 from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 def index(request):
     return render(request, 'index.html')
 
+def create_user(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+def doLogin(request):
+    username= request.GET.get('username')
+    password= request.GET.get('password')
+    
+    user = authenticate(request, username=username, password=password )
+
+    if user is not None:
+        login(request,user)
+        messages.info(request, 'welcome')             
+        return render(request, 'index.html')
+
+    else:
+        messages.info(request, 'something wrong')
+        # return HttpResponse('<H1>Something wrong</H1>', status=400)
+        return render(request, 'index.html')
+
 def loginPage(request):
-    if request.POST:
-        check_if_user_exists = User.objects.filter(name=request.POST.get('email')).exists()
-        if check_if_user_exists:
-            user = authenticate(request, email=request.POST.get('email'), password=request.POST.get('password'))
-
-            if user is not None:
-                login(request,user=user);             
-                return HttpResponse('<H1>Logged in!</H1>', status=200)
-            else:
-                return loginPage
-
-        return loginPage
-
+    messages.info(request, 'wtf')
     return render(request, 'login.html')
 
 def product(request):
