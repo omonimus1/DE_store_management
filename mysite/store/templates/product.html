@@ -48,7 +48,7 @@
                                                     <th scope="col">Category</th>
                                                     <th scope="col">Min. stock</th>
                                                     <th scope="col">Availability</th>
-
+                                                    <th scope="col">Active offer</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -70,14 +70,9 @@
                                                             <button type="button" class="btn btn-warning">Need to reorder</button>
                                                         {% endif %}
                                                     </td>
-                                                    <!-- <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox"  {%if product.available %} checked="checked" {% endif %}
-                                                             class="custom-control-input" id="customSwitch1">
-                                                            <label class="custom-control-label" for="customSwitch1">Edit</label>
-                                                        </div>
-                                                          
-                                                    </td> -->
+                                                    <td>
+                                                        {{product.offer.name}}
+                                                    </td> 
                                                 </tr>
                                                 {% endfor %}
 
