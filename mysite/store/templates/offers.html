@@ -31,6 +31,9 @@
 
                                 <form id="new-offer-form" method="POST" action="offer">
                                     {% csrf_token %}
+                                    {% for message in messages %}
+                                        <p id="messages">{{message}}</p>
+                                    {% endfor %}
                                     <div class="row offer-details">
                                         <div class="row">
                                             <div class="col-4">

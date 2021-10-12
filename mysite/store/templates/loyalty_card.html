@@ -24,7 +24,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="header-title mb-4">Staff</h5>
+                        <h5 class="header-title mb-4">Loyalty Cards</h5>
+                        {% for message in messages %}
+                            <p id="messages">{{message}}</p>
+                        {% endfor %}
                         <div class="table-responsive">
                             <table class="table table-centered table-hover mb-0" id="table-list">
                                 <thead>
