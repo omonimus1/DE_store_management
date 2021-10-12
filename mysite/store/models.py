@@ -60,6 +60,7 @@ class Offer(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255, blank=False)
     description = models.TextField(blank=False)
+    delivery_fee = models.FloatField(blank=False, default=0.0)
     average_rating = models.DecimalField(max_digits=9, decimal_places=1, default=0.0)
     price = models.DecimalField(max_digits=9, decimal_places=2, blank=False)
     available = models.BooleanField(default=True, blank=False)
