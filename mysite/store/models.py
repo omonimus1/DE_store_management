@@ -111,7 +111,6 @@ class Product(models.Model):
     def set_product_as_not_available(product_id):
         product = Product.objects.filter(id = id)
         product.available = False
-        Product.send_email_alert('Product ' +product.name +' run out of stock, please order more')
 
 
 
