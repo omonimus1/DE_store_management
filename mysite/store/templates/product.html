@@ -17,7 +17,7 @@
                     <div class="col-6">
                         <h4 class="page-title mb-1">Products</h4>
                         <button class="btn btn-secondary" type="button" data-id='{{ product.price}}' data-price="{{ product.price}}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                            Update price
+                            Modify product
                         </button>  
                         <button class="btn btn-secondary" type="button"  class="btn btn-warning" data-toggle="modal" data-target="#filter-by-offer">
                             Filter By Offers
@@ -49,6 +49,7 @@
                                                     <th scope="col">ID</th>
                                                     <th scope="col">Name</th>
                                                     <th scope="col">Price</th>
+                                                    <th scope="col">Delivery fee</th>
                                                     <th scope="col">Stock</th>
                                                     <th scope="col">Category</th>
                                                     <th scope="col">Min. stock</th>
@@ -65,6 +66,7 @@
                                                     <td>{{ product.id }}</td>
                                                     <td>{{ product.name }}</td>
                                                     <td>{{ product.price }}</td>
+                                                    <td>{{ product.delivery_fee }}</td>
                                                     <td>{{ product.stock }}</td>
                                                     <td>{{product.category.name}}</td>
                                                     <td>{{product.minimum_stock}}</td>
@@ -166,8 +168,12 @@
                         <input type="number" min="0.1" step="0.01" class="form-control" name="price" :value="price" required/>
                     </div>
                     <div class="form-group">
-                        <label for="id">Product Id</label>
+                        <label for="id">Product Id:</label>
                         <input type="number" min="0" step="1" class="form-control" name="id" :value="id" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery_fee">Delivery fee:</label>
+                        <input type="number" min="0.0" step="0.1" class="form-control" name="delivery_fee" :value="delivery_fee" required/>
                     </div>
                 </div>
                 <div class="modal-footer">
