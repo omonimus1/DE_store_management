@@ -13,20 +13,16 @@
         <!-- Page-Title -->
         <div class="page-title-box">
             <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="row">
-                        <div class="col-6">
-                            <h4 class="page-title mb-1">Products</h4>
-                            <button class="btn btn-secondary" type="button" data-id='{{ product.price}}' data-price="{{ product.price}}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                Update price
-                            </button>  
-                            <button class="btn btn-secondary" type="button"  class="btn btn-warning" data-toggle="modal" data-target="#filter-by-offer">
-                                Filter By Offers
-                            </button>  
-                        </div>
-                    
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="page-title mb-1">Products</h4>
+                        <button class="btn btn-secondary" type="button" data-id='{{ product.price}}' data-price="{{ product.price}}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                            Update price
+                        </button>  
+                        <button class="btn btn-secondary" type="button"  class="btn btn-warning" data-toggle="modal" data-target="#filter-by-offer">
+                            Filter By Offers
+                        </button>  
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -107,22 +103,27 @@
     <div class="modal fade" id="filter-by-offer" tabindex="-1" role="dialog" aria-labelledby="filter-by-offer" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <form method="post" action="filterProductByOfer">
+            <form method="post" action="filterProductByOffer">
                 {% csrf_token %}
                 <div class="modal-body">
-                    <select class="form-select" aria-label="Default select example">
-                        <option value="0" selected>No offer</option>
-                        {% for offer in offers %}
-                            <option value="{{ offer.id }}">{{ offer.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <a href="product">                        
-                        <button type="submit" class="btn btn-primary">Filter</button>
-                    </a>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="offer">Offer:</label>
+                                <select class="form-select" name="offer" aria-label="Default select example">
+                                    <option value="0" selected>No offer</option>
+                                    {% for offer in offers %}
+                                        <option value="{{ offer.id }}">{{ offer.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="filterProductByOffer">                        
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
             </form>
             </div>
         </div>
@@ -155,177 +156,5 @@
         </div>
     </div>
 
-    <script>
-        $('.edit-price').click(function(e){
-            product_id = $(this).data('id');
-        });
-
-        $('#update').click(function(e){
-                e.preventDefault();
-
-                window.LOADER.show();
-                //  /api/admin/user/2/describe?description=Non solo permanente
-                axios.post("127.0.0.1:8000/product")
-                    .then(function(){
-                        // window.LOADER.hide();
-                        // alertify.success("Descrizione shop aggiornata");
-                        window.location.reload();
-                    })
-                    .catch(function(err){
-                        window.LOADER.hide();
-                        //alertify.error(err.response.data.errors[0]);
-                    })
-
-            });
-    </script>
-    {% comment %}
-
-
-
-    <script>
-        (function(){
-
-            var user_id;
-
-            $('#table-list').DataTable({
-                order: [1, 'desc']
-            });
-
-
-            $('.edit-description').click(function(e){
-                user_id = $(this).data('id');
-                $("#description_shop").val($(this).data('description'))
-            });
-
-            $('#update').click(function(e){
-                e.preventDefault();
-
-                window.LOADER.show();
-                //  /api/admin/user/2/describe?description=Non solo permanente
-                axios.post('{{ env('API_URL') }}/admin/user/'+user_id+'/describe?description='+$("#description_shop").val())
-                    .then(function(){
-                        // window.LOADER.hide();
-                        alertify.success("Descrizione shop aggiornata");
-
-                        window.location.reload();
-                    })
-                    .catch(function(err){
-
-                        window.LOADER.hide();
-
-                        alertify.error(err.response.data.errors[0]);
-                    })
-
-            });
-
-
-
-            $(document)
-                .on('click', '.show-alert', function(e){
-                    e.preventDefault();
-                    Swal.fire({
-                        title: "Non è possibile personificare un utente bannato",
-                        // text: "You won't be able to revert this!",
-                        icon: "info",
-                        confirmButtonColor: "#3ddc97",
-                        confirmButtonText: "Ok",
-                    })
-                })
-                .on('click','.action-approve', function(e){
-                    e.preventDefault();
-
-                    var self = $(this);
-
-                    Swal.fire({
-                        title: "Attivare l'utente?",
-                        // text: "You won't be able to revert this!",
-                        icon: "warning",
-                        showCancelButton: !0,
-                        confirmButtonColor: "#3ddc97",
-                        cancelButtonColor: "#f46a6a",
-                        confirmButtonText: "Conferma",
-                        cancelButtonText: "Annulla"
-                    }).then(function (t) {
-
-                        if( t.value )
-                        {
-                            window.LOADER.show();
-
-                            axios.post(self.attr('href')+'?active=1')
-                                .then(function(){
-                                    // window.LOADER.hide();
-                                    // self.toggleClass('btn-danger btn-info');
-                                    // self.find('i').toggleClass('fa-lock fa-lock-open');
-                                    alertify.success("Stato utente aggiornato");
-                                    window.location.reload();
-
-                                })
-                                .catch(function(err){
-
-                                    console.log(err);
-
-                                    window.LOADER.hide();
-
-                                    alertify.error("Impossibile aggiornare lo stato");
-                                })
-
-                        }
-                        // t.value && Swal.fire("Deleted!", "Your file has been deleted.", "success")
-                    });
-
-                })
-                .on('click','.action-blacklist, .action-unblacklist', function(e){
-
-                    e.preventDefault();
-
-
-                    var $this = $(this),
-                        isBlocked = $(this).hasClass('action-blacklist'),
-                        text = isBlocked ? 'Bloccare' : 'Sbloccare',
-                        // conf = confirm(text + " l'utente?"),
-                        self = $(this);
-
-                    Swal.fire({
-                        title: text + " l'utente?",
-                        // text: "You won't be able to revert this!",
-                        icon: "warning",
-                        showCancelButton: !0,
-                        confirmButtonColor: "#3ddc97",
-                        cancelButtonColor: "#f46a6a",
-                        confirmButtonText: "Conferma",
-                        cancelButtonText: "Annulla"
-                    }).then(function (t) {
-
-                        if( t.value )
-                        {
-
-
-                            window.LOADER.show();
-                            axios.post($this.attr('href')+'?blacklist='+(isBlocked ? 1 : 0))
-                                .then(function(){
-                                    // window.LOADER.hide();
-                                    // self.toggleClass('btn-danger btn-info');
-                                    // self.find('i').toggleClass('fa-lock fa-lock-open');
-                                    alertify.success("Stato utente aggiornato");
-                                    window.location.reload()
-
-                                })
-                                .catch(function(err){
-
-                                    console.log(err);
-
-                                    window.LOADER.hide();
-
-                                    alertify.error("Impossibile aggiornare lo stato");
-                                })
-
-                        }
-                    });
-
-                });
-
-        })()
-    </script>
-    {% endcomment %}
-
+   
 {% endblock content%}
