@@ -17,7 +17,7 @@
                     <div class="col-6">
                         <h4 class="page-title mb-1">Products</h4>
                         <button class="btn btn-secondary" type="button" data-id='{{ product.price}}' data-price="{{ product.price}}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                            Update price
+                            Modify product
                         </button>  
                         <button class="btn btn-secondary" type="button"  class="btn btn-warning" data-toggle="modal" data-target="#filter-by-offer">
                             Filter By Offers
@@ -168,8 +168,12 @@
                         <input type="number" min="0.1" step="0.01" class="form-control" name="price" :value="price" required/>
                     </div>
                     <div class="form-group">
-                        <label for="id">Product Id</label>
+                        <label for="id">Product Id:</label>
                         <input type="number" min="0" step="1" class="form-control" name="id" :value="id" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery_fee">Delivery fee:</label>
+                        <input type="number" min="0.0" step="0.1" class="form-control" name="delivery_fee" :value="delivery_fee" required/>
                     </div>
                 </div>
                 <div class="modal-footer">

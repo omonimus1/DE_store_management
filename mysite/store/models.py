@@ -79,8 +79,8 @@ class Product(models.Model):
     def get_active():
         return Product.objects.filter(available=True)
 
-    def update_price(id, price):
-        Product.objects.filter(id = id).update(price = price)
+    def update_product(id, price, delivery, min_stock):
+        Product.objects.filter(id = id).update(price = price,minimum_stock=min_stock, delivery_fee=delivery )
 
 
     def get_total_number_of_products():
