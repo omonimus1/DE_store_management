@@ -16,8 +16,6 @@ class User(models.Model):
     email = models.EmailField(max_length=200, blank=False)
     password = models.CharField(max_length=200, blank=False)
     level = models.IntegerField(blank=False)
-    address = models.CharField(max_length=255, blank=True)
-    postcode = models.CharField(max_length=10, blank=True)
     created_at = models.DateField(null=True,  default=timezone.now())
     updated_at = models.DateField(null=True,  default=timezone.now())
     deleted_at = models.DateField(default=None)
@@ -30,9 +28,19 @@ class Category(models.Model):
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
     deleted_at = models.DateField(default=None)
-    
+
     def __str__(self):
         return self.name
+
+class Shop(models.Model):
+    address = models.CharField(max_length=255, blank=True)
+    postcode = models.CharField(max_length=10, blank=True)
+    phone = models.CharField(max_length=14, blank=True)
+    manager = models.ForeignKey(User, on_delete=models.CASCADE)
+    assistance_email = models.EmailField(null=True)
+
+    def __str__(self):
+        return self.name  
 
 class Offer(models.Model):
     name = models.CharField(max_length=255, blank=False, default='Unknown offer')

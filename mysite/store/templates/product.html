@@ -14,12 +14,19 @@
         <div class="page-title-box">
             <div class="container-fluid">
                 <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h4 class="page-title mb-1">Products</h4>
-                        <button class="btn btn-secondary" type="button" data-id='{{ product.price}}' data-price="{{ product.price}}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                            Update price
-                        </button>  
+                    <div class="row">
+                        <div class="col-6">
+                            <h4 class="page-title mb-1">Products</h4>
+                            <button class="btn btn-secondary" type="button" data-id='{{ product.price}}' data-price="{{ product.price}}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                Update price
+                            </button>  
+                            <button class="btn btn-secondary" type="button"  class="btn btn-warning" data-toggle="modal" data-target="#filter-by-offer">
+                                Filter By Offers
+                            </button>  
+                        </div>
+                    
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -95,6 +102,31 @@
 
     </div>
 
+
+    <!--Modal-->
+    <div class="modal fade" id="filter-by-offer" tabindex="-1" role="dialog" aria-labelledby="filter-by-offer" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <form method="post" action="filterProductByOfer">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <select class="form-select" aria-label="Default select example">
+                        <option value="0" selected>No offer</option>
+                        {% for offer in offers %}
+                            <option value="{{ offer.id }}">{{ offer.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <a href="product">                        
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

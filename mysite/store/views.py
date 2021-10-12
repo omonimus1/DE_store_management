@@ -46,9 +46,11 @@ def product(request):
     if is_user_authenticated(request):
         product_list = Product.objects.all()
         number_of_products = product_list.count()
+        list_of_offers = Offer.objects.all()
         return render(request, 'product.html', {
             'products': product_list,
             'products_number' : number_of_products,
+            'offers': list_of_offers,
         })
     return loginPage(request)
 
