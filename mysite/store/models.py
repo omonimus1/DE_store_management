@@ -16,11 +16,9 @@ class User(models.Model):
     email = models.EmailField(max_length=200, blank=False)
     password = models.CharField(max_length=200, blank=False)
     level = models.IntegerField(blank=False)
-    address = models.CharField(max_length=255, blank=True)
-    postcode = models.CharField(max_length=10, blank=True)
-    created_at = models.DateField(null=True,  default=timezone.now())
-    updated_at = models.DateField(null=True,  default=timezone.now())
-    deleted_at = models.DateField(default=None)
+    created_at = models.DateField(blank=False,  default=timezone.now())
+    updated_at = models.DateField(blank=False,  default=timezone.now())
+    deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
         return self.name
@@ -29,17 +27,31 @@ class Category(models.Model):
     name = models.CharField(max_length=255, blank=False)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(default=None)
-    
+    deleted_at = models.DateField(blank=True, null=True, default=None)
+
     def __str__(self):
         return self.name
+
+class Shop(models.Model):
+    address = models.CharField(max_length=255, blank=True)
+    postcode = models.CharField(max_length=10, blank=True)
+    phone = models.CharField(max_length=14, blank=True)
+    manager = models.ForeignKey(User, on_delete=models.CASCADE)
+    assistance_email = models.EmailField(null=True)
+    created_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(null=True, default=timezone.now())
+    deleted_at = models.DateField(blank=True, null=True, default=None)
+
+
+    def __str__(self):
+        return self.name  
 
 class Offer(models.Model):
     name = models.CharField(max_length=255, blank=False, default='Unknown offer')
     description = models.TextField(blank=False, default='Unknown description')
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True, default=None)
+    deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
             return self.name
@@ -57,7 +69,7 @@ class Product(models.Model):
     stock = models.IntegerField(blank=False, default=0)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(null=True, default=None)
+    deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
         return self.name
@@ -88,17 +100,25 @@ class Product(models.Model):
             'slug': self.slug
         })
 
-    def get_email_alert():
+    def send_email_alert(alert_message):
         product_list = Product.objects.all()
         for product in product_list:
             if(product.stock < product.minimum_stock and product.available is True):
                 send_mail(
                     'Product stock alert',
-                    'Hi, the product ' + product.name + ' is almost out of stock', 
+                    alert_message, 
                     'stock@ed.com',
                     ['davidepollicino2015@gmail.com'],
                     fail_silently=False,
                 )
+
+    def set_product_as_not_available(product_id):
+        product = Product.objects.filter(id = id)
+        product.available = False
+
+
+
+
 
 
 class ProductImage(models.Model):
@@ -106,7 +126,7 @@ class ProductImage(models.Model):
     url = models.URLField(blank=False)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(default=None)
+    deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
         return self.name
@@ -119,7 +139,7 @@ class LoyalCard(models.Model):
     active = models.BooleanField(blank=False, default=True)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(default=None)
+    deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
         return self.name
@@ -132,7 +152,7 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(null=True, default=timezone.now())
-    deleted_at = models.DateField(default=None)
+    deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
         return self.name
@@ -141,6 +161,9 @@ class Review(models.Model):
 class Coupon(models.Model):
     code = models.CharField(max_length=15)
     amount = models.FloatField()
+    created_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(null=True, default=timezone.now())
+    deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
         return self.code
@@ -189,6 +212,9 @@ class Order(models.Model):
     received = models.BooleanField(default=False)
     refund_requested = models.BooleanField(default=False)
     refund_granted = models.BooleanField(default=False)
+    created_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(null=True, default=timezone.now())
+    deleted_at = models.DateField(blank=True, null=True, default=None)
 
     '''
     1. product added to cart
@@ -218,7 +244,10 @@ class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     amount = models.FloatField()
     timestamp = models.DateTimeField(default=timezone.now())
-
+    created_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(null=True, default=timezone.now())
+    deleted_at = models.DateField(blank=True, null=True, default=None)
+    
     def __str__(self):
         return self.user.username
 
