@@ -96,17 +96,26 @@ class Product(models.Model):
             'slug': self.slug
         })
 
-    def get_email_alert():
+    def send_email_alert(alert_message):
         product_list = Product.objects.all()
         for product in product_list:
             if(product.stock < product.minimum_stock and product.available is True):
                 send_mail(
                     'Product stock alert',
-                    'Hi, the product ' + product.name + ' is almost out of stock', 
+                    alert_message, 
                     'stock@ed.com',
                     ['davidepollicino2015@gmail.com'],
                     fail_silently=False,
                 )
+
+    def set_product_as_not_available(product_id):
+        product = Product.objects.filter(id = id)
+        product.available = False
+        Product.send_email_alert('Product ' +product.name +' run out of stock, please order more')
+
+
+
+
 
 
 class ProductImage(models.Model):
