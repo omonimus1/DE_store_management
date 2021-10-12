@@ -11,5 +11,6 @@ urlpatterns = [
     path('doLogin', views.doLogin),
     path('finance', views.finance),
     path('logout', views.log_user_out),
-    path('updateProductPrice', views.updateProductPrice)
+    path('updateProductPrice', views.updateProductPrice),
+    path('filterProductByOffer', views.filterProductByOffer),
 ]

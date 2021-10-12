@@ -52,6 +52,8 @@
                                                     <th scope="col">Min. stock</th>
                                                     <th scope="col">Availability</th>
                                                     <th scope="col">Active offer</th>
+                                                    <th scope="col">Offer id</th>
+
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -75,6 +77,9 @@
                                                     </td>
                                                     <td>
                                                         {{product.offer.name}}
+                                                    </td> 
+                                                    <td>
+                                                        {{product.offer.id}}
                                                     </td> 
                                                 </tr>
                                                 {% endfor %}
@@ -103,18 +108,33 @@
     <div class="modal fade" id="filter-by-offer" tabindex="-1" role="dialog" aria-labelledby="filter-by-offer" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <form method="post" action="filterProductByOffer">
+            <form method="POST" action="filterProductByOffer">
                 {% csrf_token %}
                 <div class="modal-body">
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="offer">Offer:</label>
-                                <select class="form-select" name="offer" aria-label="Default select example">
-                                    <option value="0" selected>No offer</option>
-                                    {% for offer in offers %}
-                                        <option value="{{ offer.id }}">{{ offer.name }}</option>
-                                    {% endfor %}
-                                </select>
+                                <div class="form-group">
+                                    <label for="offer_id">Filter by offer Id</label>
+                                    <input type="number" min="0" step="1" class="form-control" name="offer_id"  required/>
+                                </div>
+                                <table class="table table-dark">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Offer id</th>
+                                        <th scope="col">Offer Name</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for offer in offers %}
+                                            <tr>
+                                                <td>{{ offer.id }}</td>
+                                                <td>{{ offer.name }}</td>
+                                            </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                 
+
                             </div>
                         </div>
                     </div>
@@ -124,7 +144,7 @@
                         </a>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>

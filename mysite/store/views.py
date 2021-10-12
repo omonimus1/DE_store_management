@@ -54,6 +54,22 @@ def product(request):
         })
     return loginPage(request)
 
+def filterProductByOffer(request):
+    if(request.POST.get('offer_id') == 0):
+        messages.info(request, 'ciao ')
+        return product(request)
+    else:
+        messages.info(request, 'cao222')
+        product_list = Product.objects.filter(offer = request.POST.get('offer_id'))
+        number_of_products = product_list.count()
+        list_of_offers = Offer.objects.all()
+        return render(request, 'product.html', {
+            'products': product_list,
+            'products_number' : number_of_products,
+            'offers': list_of_offers,
+        })
+    
+
 
 
 def updateProductPrice(request):
