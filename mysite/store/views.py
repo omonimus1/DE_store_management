@@ -2,23 +2,17 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .models import LoyalCard, Product, User, Offer, Category
+from .models import LoyalCard, Product, User, Offer, Category, is_user_manager
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
-def is_user_authenticated(request):
-    user = request.user
-    if user.is_authenticated:
-        return True
-    return False
-
 def index(request):
-    if is_user_authenticated(request):
+    if is_user_manager(request):
         return render(request, 'index.html')
     return loginPage(request)
 
 
 def create_user(request):
-    if is_user_authenticated(request):
+    if is_user_manager(request):
         if request.method == "POST":
             form = UserCreationForm(request.POST)
             if form.is_valid():
@@ -43,7 +37,7 @@ def loginPage(request):
     return render(request, 'login.html')
 
 def product(request):
-    if is_user_authenticated(request):
+    if is_user_manager(request):
         product_list = Product.objects.all()
         number_of_products = product_list.count()
         list_of_offers = Offer.objects.all()
@@ -87,14 +81,14 @@ def updateProductPrice(request):
 
 
 def card(request):
-    if is_user_authenticated(request):
+    if is_user_manager(request):
         cards = LoyalCard.objects.all()
         return render(request, 'loyalty_card.html', {'cards': cards})
     return loginPage(request)
 
 
 def offer(request):
-    if is_user_authenticated(request):
+    if is_user_manager(request):
         if request.POST:
             new_offer = Offer()
             new_offer.name = request.POST.get('name')
@@ -106,7 +100,7 @@ def offer(request):
 
 
 def finance(request):
-    if is_user_authenticated(request):
+    if is_user_manager(request):
         return render(request, 'finance.html')
     return loginPage(request)
 

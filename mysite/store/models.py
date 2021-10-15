@@ -6,8 +6,15 @@ from django.db import models
 from django.db.models import Sum
 from django.shortcuts import reverse
 from django.core.mail import send_mail
+from django.contrib.auth.models import Group, User
 
 
+def is_user_manager(request):
+    user = request.user
+    return is_user_authenticated(request) and user.groups.filter(name='manager').exists()
+
+def is_user_authenticated(request):
+    return request.user.is_authenticated
 
 class User(models.Model):
     name = models.CharField(max_length=200, blank=False)
@@ -15,7 +22,7 @@ class User(models.Model):
     username = models.CharField(max_length=255, default=None)
     email = models.EmailField(max_length=200, blank=False)
     password = models.CharField(max_length=200, blank=False)
-    level = models.IntegerField(blank=False)
+    level = models.IntegerField(blank=False, default=1)
     created_at = models.DateField(blank=False,  default=timezone.now())
     updated_at = models.DateField(blank=False,  default=timezone.now())
     deleted_at = models.DateField(blank=True, null=True, default=None)
