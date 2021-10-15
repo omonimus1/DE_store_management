@@ -1,5 +1,5 @@
 import datetime
-import celery
+# import celery
 from .models import Product
 
 @celery.decorators.periodic_task(run_every=datetime.timedelta(minutes=60)) # here we assume we want it to be run every 60 mins
