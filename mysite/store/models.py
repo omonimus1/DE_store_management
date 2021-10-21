@@ -9,12 +9,6 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import Group, User
 
 
-def is_user_manager(request):
-    user = request.user
-    return is_user_authenticated(request) and user.groups.filter(name='manager').exists()
-
-def is_user_authenticated(request):
-    return request.user.is_authenticated
 
 class User(models.Model):
     name = models.CharField(max_length=200, blank=False)
@@ -27,6 +21,7 @@ class User(models.Model):
     updated_at = models.DateField(blank=False,  default=timezone.now())
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
+    
     def __str__(self):
         return self.name
     
