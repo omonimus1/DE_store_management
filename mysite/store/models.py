@@ -29,6 +29,14 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def is_user_manager(request):
+    user = request.user
+    return is_user_authenticated(request) and user.groups.filter(name='manager').exists()
+
+
+    def is_user_authenticated(request):
+        return request.user.is_authenticated
 
 class Category(models.Model):
     name = models.CharField(max_length=255, blank=False)
