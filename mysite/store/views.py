@@ -2,17 +2,17 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .models import LoyalCard, Product, User, Offer, Category, is_user_manager
+from .models import LoyalCard, Product, User, Offer, Category
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 def index(request):
-    if is_user_manager(request):
+    if User.is_user_manager(request):
         return render(request, 'index.html')
     return loginPage(request)
 
 
 def create_user(request):
-    if is_user_manager(request):
+    if User.is_user_manager(request):
         if request.method == "POST":
             form = UserCreationForm(request.POST)
             if form.is_valid():

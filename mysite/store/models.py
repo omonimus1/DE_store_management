@@ -9,7 +9,6 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import Group, User
 
 
-
 class User(models.Model):
     name = models.CharField(max_length=200, blank=False)
     surname = models.CharField(max_length=200)
@@ -25,13 +24,18 @@ class User(models.Model):
     def __str__(self):
         return self.name
     
-    def is_user_manager(request):
-    user = request.user
-    return is_user_authenticated(request) and user.groups.filter(name='manager').exists()
-
-
     def is_user_authenticated(request):
         return request.user.is_authenticated
+
+
+    def is_user_manager(request):
+        user = request.user
+        if( User.is_user_authenticated(request) and user.groups.filter(name='manager').exists() ):
+            return True
+        return False
+
+
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255, blank=False)
