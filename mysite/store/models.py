@@ -128,11 +128,6 @@ class Product(models.Model):
         product = Product.objects.filter(id = id)
         product.available = False
 
-
-
-
-
-
 class ProductImage(models.Model):
     product_id = models.ForeignKey(Product,  on_delete=models.CASCADE)
     url = models.URLField(blank=False)
