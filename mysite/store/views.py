@@ -26,7 +26,10 @@ def doLogin(request):
     user = authenticate(request, username=username, password=password )
     if user is not None:
         login(request,user)
-        return render(request, 'index.html')
+        total_sale = 1;
+        return render(request, 'index.html', {
+            'total_sale': total_sale, 
+        })
 
     else:
         messages.info(request, 'something wrong during authentication')

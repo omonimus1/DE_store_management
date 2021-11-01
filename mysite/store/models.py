@@ -183,7 +183,7 @@ class Orderproduct(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.quantity} of {self.it.title}"
+        return f"{self.quantity} of {self.product.name}"
 
     def get_total_product_price(self):
         return self.quantity * self.product.price
@@ -224,7 +224,7 @@ class Order(models.Model):
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
     '''
-    1. product added to cart
+    1. product added to cartPy
     2. Adding a billing address
     (Failed checkout)
     3. Payment
@@ -261,7 +261,7 @@ class Payment(models.Model):
 class Address(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     street_address = models.CharField(max_length=100)
-    apartment_address = models.CharField(max_length=100)
+    apartment_number = models.CharField(max_length=100, blank=True, default='')
     country =  models.CharField(max_length=100)
     zip = models.CharField(max_length=100)
     default = models.BooleanField(default=False)
