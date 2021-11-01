@@ -235,7 +235,7 @@ class Order(models.Model):
     '''
 
     def __str__(self):
-        return self.user.username
+        return f"{self.billing_address.street_address} of {self.billing_address.apartment_number}"
 
     def get_total(self):
         total = 0
@@ -267,7 +267,7 @@ class Address(models.Model):
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.street_address} of {self.apartment_number}"
 
     class Meta:
         verbose_name_plural = 'Addresses'

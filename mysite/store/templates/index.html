@@ -36,7 +36,10 @@
                                 <div class="col-lg-4">
                                     <div class="card">
                                         <div class="card-header bg-transparent p-3">
-                                            <h5 class="header-title mb-0">General information</h5>
+                                            <h5 class="header-title mb-0">General information</h5> 
+                                            {{total_sale}}
+                                           <p>Vendite totali: {{total_price}} </p>
+                                           
                                             {% for message in messages %}
                                                 <p id="messages">{{message}}</p>
                                             {% endfor %}
