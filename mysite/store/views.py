@@ -10,9 +10,14 @@ def index(request):
         total_sale = 2;
         items = Payment.objects.all()
         total_price = sum(items.values_list('amount', flat=True))
+        last_week_price =  Payment.objects.filter(created_at__range=["2021-11-01", "2021-12-20"])
+        last_week = sum(last_week_price.values_list('amount', flat=True))
+
+        
         return render(request, 'index.html', {
             'total_sale': total_sale, 
             'total_price' : total_price,
+            'last_week' : last_week,
         })
     return loginPage(request)
 
