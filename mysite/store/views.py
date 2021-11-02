@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
@@ -7,19 +8,22 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 def index(request):
     if User.is_user_authenticated(request):
-        total_sale = 2;
-        items = Payment.objects.all()
-        number_of_sales = items.count()
-        total_price = sum(items.values_list('amount', flat=True))
-        last_week_price =  Payment.objects.filter(created_at__range=["2021-11-01", "2021-12-20"])
-        last_week = sum(last_week_price.values_list('amount', flat=True))
-
+        sale_amount_last_week = Payment.get_sales_amount_in_latest_n_days(7)
+        sale_amount_last_trimester = Payment.get_sales_amount_in_latest_n_days(90)
+        sale_amount_today = Payment.get_sale_amount_current_day()
+        sale_amount_current_year = Payment.get_sale_amount_this_year()
+        total_number_of_sales = Payment.get_total_number_of_sales_made()
+        total_sale_amount = Payment.get_total_amount_of_sales()
+        average_sale_amount = Payment.get_average_sale_amount()
 
         return render(request, 'index.html', {
-            'total_sale': total_sale, 
-            'total_price' : total_price,
-            'last_week' : last_week,
-            'number_of_sales' : number_of_sales,
+           'amount_last_week' : sale_amount_last_week, 
+           'amount_last_trimester' : sale_amount_last_trimester,
+           'amount_today' :sale_amount_today,
+           'sale_amount_current_year':sale_amount_current_year,
+           'total_number_of_sales':total_number_of_sales,
+           'total_sale_amount':total_sale_amount,
+           'average_sale_amount' :average_sale_amount
         })
     return loginPage(request)
 
