@@ -256,9 +256,8 @@ class Payment(models.Model):
     """
     
     def get_sale_amount_current_day():
-        current_date = datetime.now().day
-        return current_date
-        payment_this_year = Payment.objects.filter(created_at__day=day)
+        current_date = datetime.now().date
+        payment_this_year = Payment.objects.filter(created_at = current_date)
         if payment_this_year.count() == 0:
             return 0.00
         return sum(payment_this_year.values_list('amount', flat=True))

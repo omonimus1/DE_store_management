@@ -15,7 +15,7 @@ def index(request):
         total_number_of_sales = Payment.get_total_number_of_sales_made()
         total_sale_amount = Payment.get_total_amount_of_sales()
         average_sale_amount = Payment.get_average_sale_amount()
-
+        sale_this_month = Payment.get_sale_amount_this_month()
         return render(request, 'index.html', {
            # 'amount_last_week' : sale_amount_last_week, 
            # 'amount_last_trimester' : sale_amount_last_trimester,
@@ -23,7 +23,8 @@ def index(request):
            'sale_amount_current_year':sale_amount_current_year,
            'total_number_of_sales':total_number_of_sales,
            'total_sale_amount':total_sale_amount,
-           'average_sale_amount' :average_sale_amount
+           'average_sale_amount' :average_sale_amount,
+           'sale_this_month':sale_this_month
         })
     return loginPage(request)
 
