@@ -262,10 +262,13 @@ class Payment(models.Model):
         return 1
 
     def get_sale_amount_this_year():
-        # current_month = datetime.month()
-        # payment_this_year = Payment.objects.filter(created_at__year=current_month)
-        # return sum(payment_this_year.values_list('amount', flat=True))
-        return 1.34
+        """current_month = datetime.month()
+        payment_this_year = Payment.objects.filter(created_at__year=current_month)
+        if payment_this_year.count() == 0:
+            return 0.00
+        """
+        # return sum(payment_this_year.values_list('amount', flat=True))
+        return 1.24
 
     def get_all_sales():
         return Payment.objects.all()
@@ -276,7 +279,9 @@ class Payment(models.Model):
 
     def get_total_amount_of_sales():
         sales = Payment.objects.all()
-        total_sales_amount = sum(sales.values_list('amount', flat=True))
+        if sales.count() == 0:
+            return 0.00
+        return sum(sales.values_list('amount', flat=True))
 
 
     def get_average_sale_amount():
