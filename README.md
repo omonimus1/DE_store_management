@@ -19,13 +19,13 @@ stock, offers, loyalty cards, and others managers all by one platform.
 * Receive an alert (email), once the product stock items would go under the minimum items.  
 * View Information related to the Products, like ID, name, price, description, category, stock, minimum stock, status. 
 #### Financial Verification: 
-* Emulate the integration of a third-part service that will allowa the maanger to verify if a client is eligible for montly payment.
+* Emulate the integration of a third-part service that will allows the manager to verify if a client is eligible for montly payment.
 #### Offer: 
 * A manager is able to create a new offer and view the total list of offer available  
 #### Loyalty Card: 
 View list of loyalty card with their relative status and information (card number, Owner full name, owner email, points accumulated in the card, activation date, state: active or not active). 
 #### Logout: 
-* To increase security levels, admins are able to logout once access to the platform is no longer needed and login back once needed.  
+* To increase security levels, admins are able to logout once access to the platform is no longer needed and login back once needed. 
 
 
 ## How to run 
@@ -33,3 +33,7 @@ View list of loyalty card with their relative status and information (card numbe
 source venv/bin/activate
 python3 manage.py run
 ```
+
+## Preview
+
+![Sales](/media/sales.png "Sales Page")
