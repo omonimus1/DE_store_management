@@ -31,9 +31,7 @@ class User(models.Model):
 
     def is_user_manager(request):
         user = request.user
-        if( User.is_user_authenticated(request) and user.groups.filter(name='manager').exists() ):
-            return True
-        return False
+        return User.is_user_authenticated(request) and user.groups.filter(name='manager').exists()
 
 
 
