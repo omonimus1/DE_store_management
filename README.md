@@ -1,6 +1,6 @@
 ## ED Store
 
-ED store is a management system for allowing manager to monitor
+ED store is a management system  that allowa store managers to monitor
 stock, offers, loyalty cards, and others managers all by one platform.
 
 ## Technologies, framework and tools Used
@@ -19,12 +19,13 @@ stock, offers, loyalty cards, and others managers all by one platform.
 * A manager will be able to view a sale preview related to the last 24 hours, week, months, trimester, year and total (in according to the full history present in the database).  
 
 #### Product management: 
-* View list of products 
+* View list of products.
+* Edit product price and minimum stock needed before to have an alert.
 * Receive an alert (email), once the product stock items would go under the minimum items.  
 * View Information related to the Products, like ID, name, price, description, category, stock, minimum stock, status. 
 
 #### Financial Verification: 
-* Emulate the integration of a third-part service that will  
+* Emulate the integration of a third-part service that will allowa the maanger to verify if a client is eligible for montly payment.
 
 #### Offer: 
 * A manager is able to create a new offer and view the total list of offer available  
