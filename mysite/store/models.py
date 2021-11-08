@@ -256,19 +256,20 @@ class Payment(models.Model):
     """
     
     def get_sale_amount_current_day():
-        # current_day = datetime.today()
-        # payment_this_year = Payment.objects.filter(created_at__day=current_day)
-        # return sum(payment_this_year.values_list('amount', flat=True))
+        current_date = datetime.now().day
+        return current_date
+        payment_this_year = Payment.objects.filter(created_at__day=day)
+        if payment_this_year.count() == 0:
+            return 0.00
+        return sum(payment_this_year.values_list('amount', flat=True))
         return 1
 
     def get_sale_amount_this_year():
-        """current_month = datetime.month()
-        payment_this_year = Payment.objects.filter(created_at__year=current_month)
+        year = datetime.now().year
+        payment_this_year = Payment.objects.filter(created_at__year=year)
         if payment_this_year.count() == 0:
             return 0.00
-        """
-        # return sum(payment_this_year.values_list('amount', flat=True))
-        return 1.24
+        return sum(payment_this_year.values_list('amount', flat=True))
 
     def get_all_sales():
         return Payment.objects.all()
@@ -294,7 +295,12 @@ class Payment(models.Model):
 
 
     def get_sale_amount_this_month():
-        ciao = 3
+        year = datetime.now().year
+        month = datetime.now().month
+        payment_this_year = Payment.objects.filter(created_at__year=year, created_at__month=month)
+        if payment_this_year.count() == 0:
+            return 0.00
+        return sum(payment_this_year.values_list('amount', flat=True))
 
 
 class Address(models.Model):
