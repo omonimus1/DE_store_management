@@ -246,18 +246,12 @@ class Payment(models.Model):
     def __str__(self):
         return self.user.username
 
-    """    
-    def get_sales_amount_in_latest_n_days(days):
-        current_date = timezone.now()
-        past_date = current_date - timedelta(days)
-        sales =  Payment.objects.filter(created_at__range=[current_date, past_date])
-        sale_amount = sum(sales.values_list('amount', flat=True))
-        return sale_amount
-    """
-    
+
     def get_sale_amount_current_day():
-        current_date = datetime.now().date
-        payment_this_year = Payment.objects.filter(created_at = current_date)
+        day = datetime.now().day
+        year = datetime.now().year
+        month = datetime.now().month
+        payment_this_year = Payment.objects.filter(created_at__day = day, created_at__year = year, created_at__month = month)
         if payment_this_year.count() == 0:
             return 0.00
         return sum(payment_this_year.values_list('amount', flat=True))
