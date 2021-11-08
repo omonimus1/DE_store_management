@@ -5,8 +5,7 @@ stock, offers, loyalty cards, and others managers all by one platform.
 
 ## Technologies, framework and tools Used
 * Django
-* HTML, CSS, Javascript
-* Mysql
+* HTML, CSS, Javascript, Bootstrap
 * Github
 
 
