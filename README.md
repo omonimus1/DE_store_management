@@ -36,4 +36,17 @@ python3 manage.py run
 
 ## Preview
 
+### Login page
+![Login](/media/login.png "Login Page")
+### Sales Overview Page
 ![Sales](/media/sales.png "Sales Page")
+### Product page
+![Product](/media/product.png "product Page")
+### Edit product
+![Edit price](/media/edit-price.png "Edit product")
+
+### Offer page
+![Offer](/media/offer.png "Offer Page")
+
+### Prototype integration third-part finance check service
+![Finance](/media/finance.png "Finance")
