@@ -1,13 +1,30 @@
+from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .models import LoyalCard, Product, User, Offer, Category
+from .models import LoyalCard, Payment, Product, User, Offer, Category
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 def index(request):
     if User.is_user_authenticated(request):
-        return render(request, 'index.html')
+        # sale_amount_last_week = Payment.get_sales_amount_in_latest_n_days(7)
+        # sale_amount_last_trimester = Payment.get_sales_amount_in_latest_n_days(90)
+        sale_amount_today = Payment.get_sale_amount_current_day()
+        sale_amount_current_year = Payment.get_sale_amount_this_year()
+        total_number_of_sales = Payment.get_total_number_of_sales_made()
+        total_sale_amount = Payment.get_total_amount_of_sales()
+        average_sale_amount = Payment.get_average_sale_amount()
+
+        return render(request, 'index.html', {
+           # 'amount_last_week' : sale_amount_last_week, 
+           # 'amount_last_trimester' : sale_amount_last_trimester,
+           'amount_today' :sale_amount_today,
+           'sale_amount_current_year':sale_amount_current_year,
+           'total_number_of_sales':total_number_of_sales,
+           'total_sale_amount':total_sale_amount,
+           'average_sale_amount' :average_sale_amount
+        })
     return loginPage(request)
 
 
@@ -26,7 +43,13 @@ def doLogin(request):
     user = authenticate(request, username=username, password=password )
     if user is not None:
         login(request,user)
-        return render(request, 'index.html')
+        total_sale = 1;
+        items = Payment.objects.all()
+        total_price = sum(items.values_list('amount', flat=True))
+        return render(request, 'index.html', {
+            'total_sale': total_sale, 
+            'total_price' : total_price,
+        })
 
     else:
         messages.info(request, 'something wrong during authentication')

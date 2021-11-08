@@ -7,7 +7,7 @@ from django.db.models import Sum
 from django.shortcuts import reverse
 from django.core.mail import send_mail
 from django.contrib.auth.models import Group, User
-
+from datetime import timedelta, date, datetime
 
 
 class User(models.Model):
@@ -25,13 +25,16 @@ class User(models.Model):
     def __str__(self):
         return self.name
     
+    def is_user_authenticated(request):
+        return request.user.is_authenticated
+
+
     def is_user_manager(request):
         user = request.user
         return User.is_user_authenticated(request) and user.groups.filter(name='manager').exists()
 
 
-    def is_user_authenticated(request):
-        return request.user.is_authenticated
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255, blank=False)
@@ -124,11 +127,6 @@ class Product(models.Model):
         product = Product.objects.filter(id = id)
         product.available = False
 
-
-
-
-
-
 class ProductImage(models.Model):
     product_id = models.ForeignKey(Product,  on_delete=models.CASCADE)
     url = models.URLField(blank=False)
@@ -184,7 +182,7 @@ class Orderproduct(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.quantity} of {self.it.title}"
+        return f"{self.quantity} of {self.product.name}"
 
     def get_total_product_price(self):
         return self.quantity * self.product.price
@@ -224,19 +222,9 @@ class Order(models.Model):
     updated_at = models.DateField(null=True, default=timezone.now())
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
-    '''
-    1. product added to cart
-    2. Adding a billing address
-    (Failed checkout)
-    3. Payment
-    (Preprocessing, processing, packaging etc.)
-    4. Being delivered
-    5. Received
-    6. Refunds
-    '''
 
     def __str__(self):
-        return self.user.username
+        return f"{self.billing_address.street_address} of {self.billing_address.apartment_number}"
 
     def get_total(self):
         total = 0
@@ -245,7 +233,6 @@ class Order(models.Model):
         if self.coupon:
             total -= self.coupon.amount
         return total
-
 
 class Payment(models.Model):
     stripe_charge_id = models.CharField(max_length=50)
@@ -259,16 +246,59 @@ class Payment(models.Model):
     def __str__(self):
         return self.user.username
 
+    """    
+    def get_sales_amount_in_latest_n_days(days):
+        current_date = timezone.now()
+        past_date = current_date - timedelta(days)
+        sales =  Payment.objects.filter(created_at__range=[current_date, past_date])
+        sale_amount = sum(sales.values_list('amount', flat=True))
+        return sale_amount
+    """
+    
+    def get_sale_amount_current_day():
+        current_day = date.today()
+        payment_this_year = Payment.objects.filter(created_at__day=current_day)
+        return sum(payment_this_year.values_list('amount', flat=True))
+
+
+    def get_sale_amount_this_year():
+        current_month = datetime.month()
+        payment_this_year = Payment.objects.filter(created_at__year=current_month)
+        return sum(payment_this_year.values_list('amount', flat=True))
+
+    def get_all_sales():
+        return Payment.objects.all()
+
+    def get_total_number_of_sales_made():
+        return Payment.get_all_sales().count()
+
+
+    def get_total_amount_of_sales():
+        sales = Payment.objects.all()
+        total_sales_amount = sum(sales.values_list('amount', flat=True))
+
+
+    def get_average_sale_amount():
+        sales = Payment.objects.all()
+        number_of_sales = sales.count()
+        total_sales_amount = sum(sales.values_list('amount', flat=True))
+        return total_sales_amount/number_of_sales
+
+
+    def get_sale_amount_this_month():
+        ciao = 3
+
+
 class Address(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     street_address = models.CharField(max_length=100)
-    apartment_address = models.CharField(max_length=100)
+    apartment_number = models.CharField(max_length=100, blank=True, default='')
     country =  models.CharField(max_length=100)
     zip = models.CharField(max_length=100)
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.street_address} of {self.apartment_number}"
 
     class Meta:
         verbose_name_plural = 'Addresses'
