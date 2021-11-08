@@ -7,7 +7,7 @@ from django.db.models import Sum
 from django.shortcuts import reverse
 from django.core.mail import send_mail
 from django.contrib.auth.models import Group, User
-from datetime import timedelta, date, datetime
+from datetime import datetime, timedelta, datetime
 
 
 class User(models.Model):
@@ -256,15 +256,16 @@ class Payment(models.Model):
     """
     
     def get_sale_amount_current_day():
-        current_day = date.today()
-        payment_this_year = Payment.objects.filter(created_at__day=current_day)
-        return sum(payment_this_year.values_list('amount', flat=True))
-
+        # current_day = datetime.today()
+        # payment_this_year = Payment.objects.filter(created_at__day=current_day)
+        # return sum(payment_this_year.values_list('amount', flat=True))
+        return 1
 
     def get_sale_amount_this_year():
-        current_month = datetime.month()
-        payment_this_year = Payment.objects.filter(created_at__year=current_month)
-        return sum(payment_this_year.values_list('amount', flat=True))
+        # current_month = datetime.month()
+        # payment_this_year = Payment.objects.filter(created_at__year=current_month)
+        # return sum(payment_this_year.values_list('amount', flat=True))
+        return 1.34
 
     def get_all_sales():
         return Payment.objects.all()
@@ -282,6 +283,8 @@ class Payment(models.Model):
         sales = Payment.objects.all()
         number_of_sales = sales.count()
         total_sales_amount = sum(sales.values_list('amount', flat=True))
+        if total_sales_amount == 0.00:
+            return 0.00
         return total_sales_amount/number_of_sales
 
 
