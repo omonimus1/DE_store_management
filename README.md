@@ -35,6 +35,9 @@ source venv/bin/activate
 python3 manage.py runserver
 ```
 
+## Login
+Make sure to create a user by the project admin section in order to login and get access to the dashboard. 
+
 ## Preview
 
 ### Login page
