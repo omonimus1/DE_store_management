@@ -30,8 +30,9 @@ View list of loyalty card with their relative status and information (card numbe
 
 ## How to run 
 ```
+cd mysite
 source venv/bin/activate
-python3 manage.py run
+python3 manage.py runserver
 ```
 
 ## Preview
