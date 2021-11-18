@@ -71,14 +71,14 @@ class Offer(models.Model):
             
 class Product(models.Model):
     name = models.CharField(max_length=255, blank=False)
-    description = models.TextField(blank=False)
+    description = models.TextField(blank=False, default='')
     delivery_fee = models.FloatField(blank=False, default=0.0)
     average_rating = models.DecimalField(max_digits=9, decimal_places=1, default=0.0)
-    price = models.DecimalField(max_digits=9, decimal_places=2, blank=False)
+    price = models.DecimalField(max_digits=9, decimal_places=2, blank=False, default=0.0)
     available = models.BooleanField(default=True, blank=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
-    minimum_stock = models.IntegerField(blank=False, default=10)
+    minimum_stock = models.IntegerField(blank=False, default=0)
     stock = models.IntegerField(blank=False, default=0)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(blank=True, null=True, default=None)
@@ -90,6 +90,10 @@ class Product(models.Model):
     @staticmethod
     def get_active():
         return Product.objects.filter(available=True)
+
+    def update_price(id, price):
+        Product.objects.filter(id = id).update(price = price)
+
 
     def update_product(id, price, delivery, min_stock):
         Product.objects.filter(id = id).update(price = price,minimum_stock=min_stock, delivery_fee=delivery )

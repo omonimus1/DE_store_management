@@ -22,3 +22,21 @@ class LoyalCardTestCase(TestCase):
         LoyalCard.enable_card(card.id)
         card = LoyalCard.objects.get(user=user)
         self.assertEqual(card.active, True)
+
+
+class ProductTestCase(TestCase):
+    def setUp(self):
+        Category.objects.create(name='test')
+        category = Category.objects.last()
+        Offer.objects.create(name='test')
+        test_offer = Offer.objects.last()
+        Product.objects.create(name="Mac", category=category, offer = test_offer)
+        
+
+    def test_update_price_product(self):
+        test_product = Product.objects.last()
+        Product.update_price(test_product.id, 99.99)
+        test_product = Product.objects.last()
+        product_price = test_product.price
+        self.assertEqual(str(test_product.price), '99.99')
+
