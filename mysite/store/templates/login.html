@@ -23,7 +23,8 @@
                         <div class="card-body p-4">
                             <div class="p-2">
                                 <h5 class="mb-5 text-center">Login to your account</h5>
-                                <form class="form-horizontal" action="doLogin" id="login-form">
+                                <form class="form-horizontal" method="POST" action="doLogin" id="login-form">
+                                    {% csrf_token %}
 
                                     <div class="row">
                                         <div class="col-md-12">

@@ -39,21 +39,30 @@ def create_user(request):
 
 
 def doLogin(request):
-    username= request.GET.get('username')
-    password= request.GET.get('password')
+    username= request.POST.get('username')
+    password= request.POST.get('password')
     user = authenticate(request, username=username, password=password )
     if user is not None:
         login(request,user)
-        total_sale = 1;
-        items = Payment.objects.all()
-        total_price = sum(items.values_list('amount', flat=True))
+        sale_amount_today = Payment.get_sale_amount_current_day()
+        sale_amount_current_year = Payment.get_sale_amount_this_year()
+        total_number_of_sales = Payment.get_total_number_of_sales_made()
+        total_sale_amount = Payment.get_total_amount_of_sales()
+        average_sale_amount = Payment.get_average_sale_amount()
+        sale_this_month = Payment.get_sale_amount_this_month()
         return render(request, 'index.html', {
-            'total_sale': total_sale, 
-            'total_price' : total_price,
+           # 'amount_last_week' : sale_amount_last_week, 
+           # 'amount_last_trimester' : sale_amount_last_trimester,
+           'amount_today' :sale_amount_today,
+           'sale_amount_current_year':sale_amount_current_year,
+           'total_number_of_sales':total_number_of_sales,
+           'total_sale_amount':total_sale_amount,
+           'average_sale_amount' :average_sale_amount,
+           'sale_this_month':sale_this_month
         })
 
     else:
-        messages.info(request, 'something wrong during authentication')
+        messages.info(request, 'User or password are not correct')
         return render(request, 'login.html')
 
 
