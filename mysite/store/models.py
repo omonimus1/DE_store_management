@@ -255,7 +255,6 @@ class Payment(models.Model):
         if payment_this_year.count() == 0:
             return 0.00
         return sum(payment_this_year.values_list('amount', flat=True))
-        return 1
 
     def get_sale_amount_this_year():
         year = datetime.now().year
