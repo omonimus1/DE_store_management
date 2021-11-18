@@ -18,7 +18,7 @@ class User(models.Model):
     password = models.CharField(max_length=200, blank=False)
     level = models.IntegerField(blank=False, default=1)
     created_at = models.DateField(blank=False,  default=timezone.now())
-    updated_at = models.DateField(blank=False,  default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
     
@@ -39,7 +39,7 @@ class User(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=255, blank=False)
     created_at = models.DateField(null=True, default=timezone.now())
-    updated_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
@@ -52,7 +52,7 @@ class Shop(models.Model):
     manager = models.ForeignKey(User, on_delete=models.CASCADE)
     assistance_email = models.EmailField(null=True)
     created_at = models.DateField(null=True, default=timezone.now())
-    updated_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
 
@@ -63,7 +63,7 @@ class Offer(models.Model):
     name = models.CharField(max_length=255, blank=False, default='Unknown offer')
     description = models.TextField(blank=False, default='Unknown description')
     created_at = models.DateField(null=True, default=timezone.now())
-    updated_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
@@ -82,7 +82,7 @@ class Product(models.Model):
     minimum_stock = models.IntegerField(blank=False, default=10)
     stock = models.IntegerField(blank=False, default=0)
     created_at = models.DateField(null=True, default=timezone.now())
-    updated_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
@@ -131,7 +131,7 @@ class ProductImage(models.Model):
     product_id = models.ForeignKey(Product,  on_delete=models.CASCADE)
     url = models.URLField(blank=False)
     created_at = models.DateField(null=True, default=timezone.now())
-    updated_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
@@ -149,8 +149,8 @@ class LoyalCard(models.Model):
     def __str__(self):
         return self.user.name
 
-    def disable_card(request):
-        LoyalCard.objects.filter(id=request.id).update(active=False)
+    def disable_card(card_id):
+        LoyalCard.objects.filter(id=card_id).update(active=False)
 
     def enable_card(request):
         LoyalCard.objects.filter(id=request.id).update(active=True)
@@ -162,7 +162,7 @@ class Review(models.Model):
     product =  models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateField(null=True, default=timezone.now())
-    updated_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
@@ -173,7 +173,7 @@ class Coupon(models.Model):
     code = models.CharField(max_length=15)
     amount = models.FloatField()
     created_at = models.DateField(null=True, default=timezone.now())
-    updated_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
@@ -224,7 +224,7 @@ class Order(models.Model):
     refund_requested = models.BooleanField(default=False)
     refund_granted = models.BooleanField(default=False)
     created_at = models.DateField(null=True, default=timezone.now())
-    updated_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
 
@@ -245,7 +245,7 @@ class Payment(models.Model):
     amount = models.FloatField()
     timestamp = models.DateTimeField(default=timezone.now())
     created_at = models.DateField(null=True, default=timezone.now())
-    updated_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
     
     def __str__(self):
