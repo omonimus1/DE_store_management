@@ -20,7 +20,6 @@ class User(models.Model):
     created_at = models.DateField(blank=False,  default=timezone.now())
     updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
-
     
     def __str__(self):
         return self.name
@@ -152,8 +151,8 @@ class LoyalCard(models.Model):
     def disable_card(card_id):
         LoyalCard.objects.filter(id=card_id).update(active=False)
 
-    def enable_card(request):
-        LoyalCard.objects.filter(id=request.id).update(active=True)
+    def enable_card(card_id):
+        LoyalCard.objects.filter(id=card_id).update(active=True)
 
 class Review(models.Model):
     title = models.CharField(max_length=255)

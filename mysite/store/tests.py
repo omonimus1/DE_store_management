@@ -14,3 +14,11 @@ class LoyalCardTestCase(TestCase):
         LoyalCard.disable_card(card.id)
         card = LoyalCard.objects.get(user=user)
         self.assertEqual(card.active, False)
+
+
+    def test_card_being_enabled(self):
+        user =  User.objects.get(email="d@gmail.com")
+        card = LoyalCard.objects.get(user=user)
+        LoyalCard.enable_card(card.id)
+        card = LoyalCard.objects.get(user=user)
+        self.assertEqual(card.active, True)
