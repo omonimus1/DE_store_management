@@ -139,16 +139,15 @@ class ProductImage(models.Model):
 
     
 class LoyalCard(models.Model):
-    name = models.CharField(max_length=200, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     points = models.IntegerField(blank=False, default=0)
     active = models.BooleanField(blank=False, default=True)
     created_at = models.DateField(null=True, default=timezone.now())
-    updated_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
-        return self.name
+        return self.user.name
 
     def disable_card(request):
         LoyalCard.objects.filter(id=request.id).update(active=False)
