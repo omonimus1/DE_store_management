@@ -150,6 +150,12 @@ class LoyalCard(models.Model):
     def __str__(self):
         return self.name
 
+    def disable_card(request):
+        LoyalCard.objects.filter(id=request.id).update(active=False)
+
+    def enable_card(request):
+        LoyalCard.objects.filter(id=request.id).update(active=True)
+
 class Review(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
