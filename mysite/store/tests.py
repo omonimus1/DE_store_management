@@ -40,3 +40,25 @@ class ProductTestCase(TestCase):
         product_price = test_product.price
         self.assertEqual(str(test_product.price), '99.99')
 
+
+class CouponTestCase(TestCase):
+    def setUp(self):
+        Coupon.objects.create()
+
+    def test_enable_coupon(self):
+        coupon = Coupon.objects.last()
+        coupon.active=False
+        self.assertEqual(coupon.active, False)
+        Coupon.enable_coupon(coupon.id)
+        coupon = Coupon.objects.last()
+        self.assertEqual(coupon.active, True)
+
+
+    def test_disable_coupon(self):
+        coupon = Coupon.objects.last()
+        coupon.active=True
+        self.assertEqual(coupon.active, True)
+        Coupon.disable_coupon(coupon.id)
+        coupon = Coupon.objects.last()
+        self.assertEqual(coupon.active, False)
+

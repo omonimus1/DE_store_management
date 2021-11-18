@@ -171,10 +171,12 @@ class Review(models.Model):
     def __str__(self):
         return self.name
 
+    
+
 
 class Coupon(models.Model):
-    code = models.CharField(max_length=15)
-    amount = models.FloatField()
+    amount = models.FloatField(default=0.0)
+    active = models.BooleanField(default=True)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
@@ -182,7 +184,13 @@ class Coupon(models.Model):
     def __str__(self):
         return self.code
 
+    def disable_coupon(coupon_id):
+        Coupon.objects.filter(id=coupon_id).update(active=False)
 
+    def enable_coupon(coupon_id):
+        Coupon.objects.filter(id=coupon_id).update(active=True)
+
+        
 class Orderproduct(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)
