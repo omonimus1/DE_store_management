@@ -50,9 +50,15 @@
                                         <td>{{ card.created_at }}</td>
                                         <td>
                                             {% if card.active  %}
-                                                <button type="button" class="btn btn-primary">Active</button>
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" checked="checked" id="active" name="active">
+                                                    <label class="custom-control-label" for="active">Active</label>
+                                                </div>
                                             {% else %}                                                            
-                                                <button type="button" class="btn btn-danger">Not active</button>
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input"  id="active" name="active">
+                                                    <label class="custom-control-label" for="active">Active</label>
+                                                </div>                                            
                                             {% endif %}
                                         </td>
                                     </tr>
