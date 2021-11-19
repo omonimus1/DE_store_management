@@ -49,17 +49,10 @@
                                         <td>{{ card.points }}</td>
                                         <td>{{ card.created_at }}</td>
                                         <td>
-                                            {% if card.active  %}
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" checked="checked" id="active" name="active">
-                                                    <label class="custom-control-label" for="active">Active</label>
-                                                </div>
-                                            {% else %}                                                            
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"  id="active" name="active">
-                                                    <label class="custom-control-label" for="active">Active</label>
-                                                </div>                                            
-                                            {% endif %}
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" checked="checked" id="{{card.id}}" name="active">
+                                                <label class="custom-control-label" for="{{card.id}}">Active</label>
+                                            </div>
                                         </td>
                                     </tr>
                                 {% endfor %}
