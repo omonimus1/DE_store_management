@@ -81,10 +81,8 @@ def product(request):
 
 def filterProductByOffer(request):
     if(request.POST.get('offer_id') == 0):
-        messages.info(request, 'ciao ')
         return product(request)
     else:
-        messages.info(request, 'cao222')
         product_list = Product.objects.filter(offer = request.POST.get('offer_id'))
         number_of_products = product_list.count()
         list_of_offers = Offer.objects.all()
@@ -101,7 +99,7 @@ def updateProductPrice(request):
     if request.POST:
         id = request.POST.get('id')
         price = request.POST.get('price')
-        Product.update_price(id, price)
+        Product.update_price(request.POST.get('id'), request.POST.get('price'))
 
         return product
     else:
