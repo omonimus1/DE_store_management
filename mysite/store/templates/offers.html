@@ -36,22 +36,16 @@
                                     {% endfor %}
                                     <div class="row offer-details">
                                         <div class="row">
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <div class="form-group">
                                                     <label>Name</label>
                                                     <input type="text" name="name" class="form-control" required>
                                                 </div>
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <div class="form-group">
                                                     <label>Description</label>
                                                     <input type="text" name="description" class="form-control" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" id="active" name="active">
-                                                    <label class="custom-control-label" for="active">Disable globally</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -78,7 +72,7 @@
                                         <tr>
                                             <th scope="col">Name</th>
                                             <th scope="col">Description</th>
-                                            <th scope="col">Latest update</th>
+                                            <th scope="col">Status</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -86,7 +80,12 @@
                                             <tr scope="row">
                                                 <td>{{ offer.name }}</td>
                                                 <td>{{ offer.description }}</td>
-                                                <td>{{offer.updated_at}}</td>
+                                                <td>
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" checked="checked" id="active" name="active">
+                                                        <label class="custom-control-label" for="active">Active </label>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         {% endfor %}
         
