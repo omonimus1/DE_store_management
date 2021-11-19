@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .models import LoyalCard, Payment, Product, User, Offer, Category
@@ -58,7 +58,6 @@ def doLogin(request):
            'average_sale_amount' :average_sale_amount,
            'sale_this_month':sale_this_month
         })
-
     else:
         messages.info(request, 'User or password are not correct')
         return render(request, 'login.html')
@@ -68,6 +67,7 @@ def loginPage(request):
     return render(request, 'login.html')
 
 def product(request):
+
     if User.is_user_authenticated(request):
         product_list = Product.objects.all()
         number_of_products = product_list.count()
@@ -96,15 +96,11 @@ def filterProductByOffer(request):
 
 
 def updateProductPrice(request):
-    if request.POST:
-        id = request.POST.get('id')
-        price = request.POST.get('price')
-        Product.update_price(request.POST.get('id'), request.POST.get('price'))
-
-        return product
-    else:
-        messages.error(request, 'UpdateProduct was not POST')
-        return product
+    # if request.POST:
+    id = request.POST.get('id')
+    price = request.POST.get('price')
+    Product.update_price(request.POST.get('id'), request.POST.get('price'))
+    return redirect('/store/product')
 
 
 def card(request):
