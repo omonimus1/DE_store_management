@@ -101,9 +101,7 @@ def updateProductPrice(request):
     if request.POST:
         id = request.POST.get('id')
         price = request.POST.get('price')
-        delivery = request.POST.get('deliver_fee')
-        minimum_stock = request.POST.get('minimum_stock')
-        Product.update_product(id, price, delivery, minimum_stock)
+        Product.update_price(id, price)
 
         return product
     else:
