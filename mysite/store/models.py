@@ -11,12 +11,12 @@ from datetime import datetime, timedelta, datetime
 
 
 class User(models.Model):
-    name = models.CharField(max_length=200, blank=False)
-    surname = models.CharField(max_length=200)
+    name = models.CharField(max_length=255, blank=False)
+    surname = models.CharField(max_length=255, blank=False)
     username = models.CharField(max_length=255, default=None)
     email = models.EmailField(max_length=200, blank=False)
     password = models.CharField(max_length=200, blank=False)
-    level = models.IntegerField(blank=False, default=1)
+    level = models.IntegerField(max_length=2, blank=False, default=1)
     created_at = models.DateField(blank=False,  default=timezone.now())
     updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
@@ -49,7 +49,7 @@ class Shop(models.Model):
     postcode = models.CharField(max_length=10, blank=True)
     phone = models.CharField(max_length=14, blank=True)
     manager = models.ForeignKey(User, on_delete=models.CASCADE)
-    assistance_email = models.EmailField(null=True)
+    assistance_email = models.EmailField(max_length=255, null=True)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
@@ -73,7 +73,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255, blank=False)
     description = models.TextField(blank=False, default='')
     delivery_fee = models.FloatField(blank=False, default=0.0)
-    average_rating = models.DecimalField(max_digits=9, decimal_places=1, default=0.0)
+    average_rating = models.DecimalField(max_digits=9, decimal_places=2, default=0.0)
     price = models.DecimalField(max_digits=9, decimal_places=2, blank=False, default=0.0)
     available = models.BooleanField(default=True, blank=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -131,7 +131,7 @@ class Product(models.Model):
         product.available = False
 
 class ProductImage(models.Model):
-    product_id = models.ForeignKey(Product,  on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,  on_delete=models.CASCADE)
     url = models.URLField(blank=False)
     created_at = models.DateField(null=True, default=timezone.now())
     updated_at = models.DateField(blank=True, null=True, default=None)
@@ -161,7 +161,7 @@ class LoyalCard(models.Model):
 class Review(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    evaluation = models.DecimalField(max_digits=9, decimal_places=2, blank=True)
+    evaluation = models.DecimalField(max_digits=4, decimal_places=2, blank=False, default=0.0)
     product =  models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateField(null=True, default=timezone.now())
@@ -190,12 +190,12 @@ class Coupon(models.Model):
     def enable_coupon(coupon_id):
         Coupon.objects.filter(id=coupon_id).update(active=True)
 
-        
+
 class Orderproduct(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    ordered = models.BooleanField(default=False)
+    ordered = models.BooleanField(blank=False, default=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
+    quantity = models.IntegerField(blank=False, default=1)
 
     def __str__(self):
         return f"{self.quantity} of {self.product.name}"
