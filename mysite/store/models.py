@@ -18,7 +18,7 @@ class User(models.Model):
     username = models.CharField(max_length=255, default=None)
     email = models.EmailField(max_length=200, blank=False)
     password = models.CharField(max_length=200, blank=False)
-    level = models.IntegerField(max_length=2, blank=False, default=1)
+    level = models.IntegerField(blank=False, default=1)
     created_at = models.DateField(blank=False,  default=timezone.now())
     updated_at = models.DateField(blank=True, null=True, default=None)
     deleted_at = models.DateField(blank=True, null=True, default=None)
@@ -46,6 +46,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+"""
 class Shop(models.Model):
     address = models.CharField(max_length=255, blank=True)
     postcode = models.CharField(max_length=10, blank=True)
@@ -59,7 +60,7 @@ class Shop(models.Model):
 
     def __str__(self):
         return self.name  
-
+"""
             
 class Offer(models.Model):
     name = models.CharField(max_length=255, blank=False, default='Unknown offer')
@@ -78,7 +79,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=9, decimal_places=2, blank=False, default=0.0)
     available = models.BooleanField(default=True, blank=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
+    # offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
     minimum_stock = models.IntegerField(blank=False, default=0)
     stock = models.IntegerField(blank=False, default=0)
     created_at = models.DateField(null=True, default=timezone.now())
@@ -144,6 +145,11 @@ class ProductDiscounted(models.Model):
     def __str__(self):
         return self.offer.name
 
+    def get_product_in_offer():
+        discounted_product = ProductDiscounted.objects.all()
+        return discounted_product # https://stackoverflow.com/questions/30111282/django-join-two-tables
+        
+
 class ProductImage(models.Model):
     product = models.ForeignKey(Product,  on_delete=models.CASCADE)
     url = models.URLField(blank=False)
@@ -185,9 +191,6 @@ class Review(models.Model):
     def __str__(self):
         return self.name
 
-    
-
-
 class Coupon(models.Model):
     amount = models.FloatField(default=0.0)
     active = models.BooleanField(default=True)
@@ -203,8 +206,6 @@ class Coupon(models.Model):
 
     def enable_coupon(coupon_id):
         Coupon.objects.filter(id=coupon_id).update(active=True)
-
-
 class Orderproduct(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ordered = models.BooleanField(blank=False, default=False)
@@ -245,7 +246,6 @@ class Order(models.Model):
     coupon = models.ForeignKey(
         'Coupon', on_delete=models.SET_NULL, blank=True, null=True)
     being_delivered = models.BooleanField(default=False)
-    received = models.BooleanField(default=False)
     refund_requested = models.BooleanField(default=False)
     refund_granted = models.BooleanField(default=False)
     created_at = models.DateField(null=True, default=timezone.now())
@@ -263,6 +263,7 @@ class Order(models.Model):
         if self.coupon:
             total -= self.coupon.amount
         return total
+
 
 class Payment(models.Model):
     stripe_charge_id = models.CharField(max_length=50)
@@ -326,12 +327,12 @@ class Payment(models.Model):
 
 
 class Address(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    street_address = models.CharField(max_length=100)
+    lat = models.FloatField(blank= False, default=0.00)
+    long = models.FloatField(blank= False, default=0.00)
+    street_address = models.CharField(max_length=255)
     apartment_number = models.CharField(max_length=100, blank=True, default='')
-    country =  models.CharField(max_length=100)
-    zip = models.CharField(max_length=100)
-    default = models.BooleanField(default=False)
+    country =  models.CharField(max_length=255)
+    zip = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.street_address} of {self.apartment_number}"
