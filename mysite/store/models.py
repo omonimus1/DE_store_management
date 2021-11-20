@@ -246,7 +246,6 @@ class Order(models.Model):
     coupon = models.ForeignKey(
         'Coupon', on_delete=models.SET_NULL, blank=True, null=True)
     being_delivered = models.BooleanField(default=False)
-    received = models.BooleanField(default=False)
     refund_requested = models.BooleanField(default=False)
     refund_granted = models.BooleanField(default=False)
     created_at = models.DateField(null=True, default=timezone.now())
@@ -328,11 +327,10 @@ class Payment(models.Model):
 
 
 class Address(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    street_address = models.CharField(max_length=100)
+    street_address = models.CharField(max_length=255)
     apartment_number = models.CharField(max_length=100, blank=True, default='')
-    country =  models.CharField(max_length=100)
-    zip = models.CharField(max_length=100)
+    country =  models.CharField(max_length=255)
+    zip = models.CharField(max_length=255)
     default = models.BooleanField(default=False)
 
     def __str__(self):
