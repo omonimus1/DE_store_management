@@ -331,7 +331,6 @@ class Address(models.Model):
     apartment_number = models.CharField(max_length=100, blank=True, default='')
     country =  models.CharField(max_length=255)
     zip = models.CharField(max_length=255)
-    default = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.street_address} of {self.apartment_number}"
