@@ -327,6 +327,8 @@ class Payment(models.Model):
 
 
 class Address(models.Model):
+    lat = models.FloatField(blank= False, default=0.00)
+    long = models.FloatField(blank= False, default=0.00)
     street_address = models.CharField(max_length=255)
     apartment_number = models.CharField(max_length=100, blank=True, default='')
     country =  models.CharField(max_length=255)
