@@ -38,20 +38,23 @@
                                     <th scope="col">Points accumulated</th>
                                     <th scope="col">Activation date</th>
                                     <th scope="col">State</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for card in cards %}
                                     <tr scope="row">
-                                        <td >{{ card.id }}</td>
+                                        <td name="card_id">{{ card.id }}</td>
                                         <td>{{ card.user.name }} {{ card.user.surname }}</td>
                                         <td>{{ card.user.email}}</td>
                                         <td>{{ card.points }}</td>
                                         <td>{{ card.created_at }}</td>
                                         <td>
                                             <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" checked="checked" id="{{card.id}}" name="active">
-                                                <label class="custom-control-label" for="{{card.id}}">Active</label>
+                                                <input type="checkbox" class="custom-control-input card-status" {% if card.active %}
+                                                checked="checked" {% endif %}
+                                                id={{card.id}} name="active" disabled>
+                                                <label class="custom-control-label" for={{card.id}}>Active</label>
                                             </div>
                                         </td>
                                     </tr>
@@ -73,91 +76,28 @@
     </div>
 
 </div>
-    {% comment %}
-
     <script>
-        (function(){
-
-            $('#table-list').DataTable();
-
-
-            $('#genera-pwd').click(function(){
-                $('[name="password"]').val(Math.random().toString(36).slice(-8));
-            });
-
-            $('#add-user').submit(function(e){
-                e.preventDefault();
-
-                window.LOADER.show();
-
-                axios.post('{{ env('API_URL') }}/admin/user/create', $(this).serializeObject())
+        function updateStatus(){
+            // Ferch card id
+            $('.card-status').click(function(e){
+                card_id = $(this).data('id');
+                alert(card_id);
+                // window.LOADER.show();
+                //  /api/admin/user/2/describe?description=Non solo permanente
+                axios.post('http://127.0.0.1:8000/store?card_id='+card_id+'&status=true')
                     .then(function(){
-
-                        alertify.success('Staff Aggiunto');
-                        window.location.reload();
+                        // window.LOADER.hide();
+                        console.log('aggiornato');
+                        // alertify.success("Descrizione shop aggiornata");
+                        // window.location.reload();
                     })
-                    .catch(function(){
-
-                        window.LOADER.hide();
-                        alertify.error('Impossibile aggiungere lo staff');
+                    .catch(function(err){
+                        // window.LOADER.hide();
+                        console.log('not updated')
+                        // alertify.error(err.response.data.errors[0]);
                     })
             });
-
-
-            $(document)
-                .on('click','.action-blacklist, .action-unblacklist', function(e){
-
-                    e.preventDefault();
-
-
-                    var $this = $(this),
-                        isBlocked = $(this).hasClass('action-blacklist'),
-                        text = isBlocked ? 'Bloccare' : 'Sbloccare',
-                        // conf = confirm(text + " l'utente?"),
-                        self = $(this);
-
-                    Swal.fire({
-                        title: text + " l'utente?",
-                        // text: "You won't be able to revert this!",
-                        icon: "warning",
-                        showCancelButton: !0,
-                        confirmButtonColor: "#3ddc97",
-                        cancelButtonColor: "#f46a6a",
-                        confirmButtonText: "Conferma",
-                        cancelButtonText: "Annulla"
-                    }).then(function (t) {
-
-                        if( t.value )
-                        {
-
-
-                            window.LOADER.show();
-                            axios.post($this.attr('href')+'?blacklist='+(isBlocked ? 1 : 0))
-                                .then(function(){
-                                    // window.LOADER.hide();
-                                    // self.toggleClass('btn-danger btn-info');
-                                    // self.find('i').toggleClass('fa-lock fa-lock-open');
-                                    alertify.success("Stato utente aggiornato");
-                                    window.location.reload()
-
-                                })
-                                .catch(function(err){
-
-                                    console.log(err);
-
-                                    window.LOADER.hide();
-
-                                    alertify.error("Impossibile aggiornare lo stato");
-                                })
-
-                        }
-                        // t.value && Swal.fire("Deleted!", "Your file has been deleted.", "success")
-                    });
-
-                });
-
-        })()
+        }
     </script>
-    {% endcomment %}
 
 {% endblock content%}

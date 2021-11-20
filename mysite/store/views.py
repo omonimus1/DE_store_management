@@ -104,9 +104,16 @@ def updateProductPrice(request):
 
 
 def card(request):
+    if request.POST:
+        if request.POST.get('status') == "true":
+            LoyalCard.disable_card(request.POST.get('card_id'))
+        else:
+            LoyalCard.enable_card(request.POST.get('card_id'))
+
     if User.is_user_authenticated(request):
         cards = LoyalCard.objects.all()
         return render(request, 'loyalty_card.html', {'cards': cards})
+
     return loginPage(request)
 
 
