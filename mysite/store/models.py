@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
+from django.db.models.fields.related import ForeignKey
 from django.utils import timezone
 from django.conf import settings
 from django.db.models.signals import post_save
@@ -58,6 +60,7 @@ class Shop(models.Model):
     def __str__(self):
         return self.name  
 
+            
 class Offer(models.Model):
     name = models.CharField(max_length=255, blank=False, default='Unknown offer')
     description = models.TextField(blank=False, default='Unknown description')
@@ -66,9 +69,7 @@ class Offer(models.Model):
     deleted_at = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
-            return self.name
-            
-            
+            return self.name      
 class Product(models.Model):
     name = models.CharField(max_length=255, blank=False)
     description = models.TextField(blank=False, default='')
@@ -129,6 +130,19 @@ class Product(models.Model):
     def set_product_as_not_available(product_id):
         product = Product.objects.filter(id = id)
         product.available = False
+
+
+
+
+class ProductDiscounted(models.Model):
+    product = ForeignKey(Product, on_delete=CASCADE)
+    offer = ForeignKey(Offer, on_delete=CASCADE)
+    created_at = models.DateField(null=True, default=timezone.now())
+    updated_at = models.DateField(blank=True, null=True, default=None)
+    deleted_at = models.DateField(blank=True, null=True, default=None)
+
+    def __str__(self):
+        return self.offer.name
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product,  on_delete=models.CASCADE)
