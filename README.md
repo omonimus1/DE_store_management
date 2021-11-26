@@ -27,7 +27,10 @@ View list of loyalty card with their relative status and information (card numbe
 #### Logout: 
 * To increase security levels, admins are able to logout once access to the platform is no longer needed and login back once needed. 
 
-
+## System requisites
+* Python3
+* Pip
+* Mailhog
 ## How to run 
 ```
 cd mysite
