@@ -119,6 +119,12 @@ class Product(models.Model):
             'slug': self.slug
         })
 
+    def check_product_quantity():
+        product_list = Product.objects.all()
+        for product in product_list:
+            if product.stock < product.minimum_stock :
+                send_mail('the product of ID ' +product.id + ' must be ordered')
+
     def send_email_alert(alert_message):
         send_mail(
             'Product stock alert',
