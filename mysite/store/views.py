@@ -80,10 +80,13 @@ def product(request):
     return loginPage(request)
 
 def filterProductByOffer(request):
+    offer_id= request.POST.get('offer_id')
     if(request.POST.get('offer_id') == 0):
         return product(request)
+    if not Product.objects.filter(offer = offer_id).exists():
+        messages.info(request, 'Offer id does not exists')
     else:
-        product_list = Product.objects.filter(offer = request.POST.get('offer_id'))
+        product_list = Product.objects.filter(offer = offer_id )
         number_of_products = product_list.count()
         list_of_offers = Offer.objects.all()
         return render(request, 'product.html', {

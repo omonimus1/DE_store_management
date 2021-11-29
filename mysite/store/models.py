@@ -79,7 +79,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=9, decimal_places=2, blank=False, default=0.0)
     available = models.BooleanField(default=True, blank=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    # offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
+    offer = models.ForeignKey(Offer,  on_delete=models.SET_NULL, blank=True, null=True)
     minimum_stock = models.IntegerField(blank=False, default=0)
     stock = models.IntegerField(blank=False, default=0)
     created_at = models.DateField(null=True, default=timezone.now())
